@@ -21,17 +21,20 @@ client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
 });
 
-// 用來記錄上下文對話
 const userHistories = {};
+const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "老婆", "射了"]; // ⬅ 你可以自訂這些關鍵字
 
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
-  if (!message.mentions.has(client.user)) return;
+  const userInput = message.content.trim();
+
+  const isTriggered = triggerKeywords.some(keyword =>
+    userInput.toLowerCase().includes(keyword.toLowerCase())
+  );
+  if (!isTriggered) return;
 
   const userId = message.author.id;
-  const userInput = message.content.replace(/<@!?\d+>/, '').trim();
 
-  // 初始化使用者歷史對話
   if (!userHistories[userId]) {
     userHistories[userId] = [
       {
@@ -57,7 +60,6 @@ client.on('messageCreate', async (message) => {
     ];
   }
 
-  // 加入當前使用者訊息
   userHistories[userId].push({ role: 'user', content: userInput });
 
   try {
@@ -72,9 +74,8 @@ client.on('messageCreate', async (message) => {
     userHistories[userId].push({ role: 'assistant', content: reply });
     message.reply(reply);
 
-    // 若歷史訊息太多，清掉最前面幾筆保留記憶深度
     if (userHistories[userId].length > 20) {
-      userHistories[userId].splice(1, 2); // 保留 system prompt，刪前面對話
+      userHistories[userId].splice(1, 2);
     }
   } catch (err) {
     console.error(err);
