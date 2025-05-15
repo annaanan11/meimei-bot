@@ -78,7 +78,7 @@ client.on('messageCreate', async (message) => {
     }
   } catch (err) {
     console.error(err);
-    message.reply(`……壞掉了。錯誤訊息是：\\`\\`\\`${err.message}\\`\\`\\``);
+    message.reply(`……壞掉了。錯誤訊息是：\`\`\`${err.message}\`\`\``);
   }
 });
 
