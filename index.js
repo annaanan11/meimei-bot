@@ -22,7 +22,7 @@ client.once('ready', () => {
 });
 
 const userHistories = {};
-const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "老婆", "射了"]; // ⬅ 你可以自訂這些關鍵字
+const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了"]; // ⬅ 你可以自訂這些關鍵字
 
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
