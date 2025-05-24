@@ -31,15 +31,19 @@ client.on('messageCreate', async (message) => {
 
   // 🦋 領角色指令
   if (userInput === '!領角色') {
-    const embed = new EmbedBuilder()
-      .setColor(0xff99cc)
-      .setTitle("🦋 小蝴蝶，來領身分組了")
-      .addFields(
-        { name: "🦋 春綺樓", value: "​" },
-        { name: "🐍 沙瑪沙海", value: "​" },
-        { name: "🧸 繡骨臺", value: "​" },
-        { name: "🍷 混池", value: "​" }
-      );
+  console.log("[DEBUG] 使用者觸發了 !領角色");
+
+  const embed = new EmbedBuilder()
+    .setColor(0xff99cc)
+    .setTitle("🦋 小蝴蝶，來領身分組了")
+    .addFields(
+      { name: "🦋 春綺樓", value: "\\u200B" },
+      { name: "🐍 沙瑪沙海", value: "\\u200B" },
+      { name: "🧸 繡骨臺", value: "\\u200B" },
+      { name: "🍷 混池", value: "\\u200B" }
+    );
+
+  // ...你的 buttonGroups 與 actionRows 保持不變
 
     const buttonGroups = [
       // 春綺樓
