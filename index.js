@@ -29,45 +29,67 @@ client.on('messageCreate', async (message) => {
   const userInput = message.content.trim();
 
   if (userInput === '!領角色') {
-    const embeds = [
-      new EmbedBuilder().setColor(0xffb6c1).setTitle("🦋 春綺樓"),
-      new EmbedBuilder().setColor(0xa0d468).setTitle("🐍 沙瑪沙海"),
-      new EmbedBuilder().setColor(0xffce54).setTitle("🧸 繡骨臺"),
-      new EmbedBuilder().setColor(0xac92ec).setTitle("🍷 混池")
-    ];
+  const roleGroups = [
+    {
+      title: "🦋 春綺樓",
+      roles: [
+        ["狼蛛的小寶貝", "🕷"],
+        ["白貂的苦命情人", "🦋"],
+        ["雙頭蛇的小狗狗", "🐰"]
+      ]
+    },
+    {
+      title: "🐍 沙瑪沙海",
+      roles: [
+        ["律嵂的小妹妹", "🐍"],
+        ["緋霏的小馬鈴薯", "🥀"],
+        ["丹䒟的小東西", "🐾"]
+      ]
+    },
+    {
+      title: "🧸 繡骨臺",
+      roles: [
+        ["平蘋的娘親", "🧸"],
+        ["安萻的小妻女", "🎀"],
+        ["佐左的主人", "🧊"],
+        ["佑釉的小霸王", "💋"]
+      ]
+    },
+    {
+      title: "🍷 混池",
+      roles: [
+        ["梅玫的小蝴蝶", "🧩"],
+        ["厲櫟的小魅魔", "🍷"],
+        ["雙爹的小女兒", "🎭"],
+        ["甯檸的神經元", "🧪"],
+        ["黛玳的小便當", "🐉"],
+        ["尹隱深井冰", "🔪"]
+      ]
+    }
+  ];
 
-    const rows = [
-      new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId("role_狼蛛的小寶貝").setLabel("狼蛛的小寶貝").setEmoji("🕷").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_白貂的苦命情人").setLabel("白貂的苦命情人").setEmoji("🦋").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_雙頭蛇的小狗狗").setLabel("雙頭蛇的小狗狗").setEmoji("🐰").setStyle(ButtonStyle.Secondary)
-      ),
-      new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId("role_律嵂的小妹妹").setLabel("律嵂的小妹妹").setEmoji("🐍").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_緋霏的小馬鈴薯").setLabel("緋霏的小馬鈴薯").setEmoji("🥀").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_丹䒟的小東西").setLabel("丹䒟的小東西").setEmoji("🐾").setStyle(ButtonStyle.Secondary)
-      ),
-      new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId("role_平蘋的娘親").setLabel("平蘋的娘親").setEmoji("🧸").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_安萻的小妻女").setLabel("安萻的小妻女").setEmoji("🎀").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_佐左的主人").setLabel("佐左的主人").setEmoji("🧊").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_佑釉的小霸王").setLabel("佑釉的小霸王").setEmoji("💋").setStyle(ButtonStyle.Secondary)
-      ),
-      new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId("role_梅玫的小蝴蝶").setLabel("梅玫的小蝴蝶").setEmoji("🧩").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_厲櫟的小魅魔").setLabel("厲櫟的小魅魔").setEmoji("🍷").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_雙爹的小女兒").setLabel("雙爹的小女兒").setEmoji("🎭").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_甯檸的神經元").setLabel("甯檸的神經元").setEmoji("🧪").setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId("role_黛玳的小便當").setLabel("黛玳的小便當").setEmoji("🐉").setStyle(ButtonStyle.Secondary)
-      ),
-      new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId("role_尹隱深井冰").setLabel("尹隱深井冰").setEmoji("🔪").setStyle(ButtonStyle.Secondary)
-      )
-    ];
+  for (const group of roleGroups) {
+    const embed = new EmbedBuilder()
+      .setTitle(group.title)
+      .setColor(0xff99cc);
 
-    await message.channel.send({ embeds, components: rows });
-    return;
+    const rows = [];
+    for (let i = 0; i < group.roles.length; i += 5) {
+      const rowButtons = group.roles.slice(i, i + 5).map(([name, emoji]) =>
+        new ButtonBuilder()
+          .setCustomId(`role_${name}`)
+          .setLabel(name)
+          .setEmoji(emoji)
+          .setStyle(ButtonStyle.Secondary)
+      );
+      rows.push(new ActionRowBuilder().addComponents(...rowButtons));
+    }
+
+    await message.channel.send({ embeds: [embed], components: rows });
   }
+  return;
+}
+
 
   const isTriggered = triggerKeywords.some(keyword =>
     userInput.toLowerCase().includes(keyword.toLowerCase())
