@@ -40,8 +40,8 @@ client.on('messageCreate', async (message) => {
   if (userInput === '!領角色') {
     const embed = new EmbedBuilder()
       .setColor(0xff99cc)
-      .setTitle('🎭 領取你的專屬身分組')
-      .setDescription('點擊下方按鈕即可獲得或移除你想要的身分組。\n\n每一組代表一位角色的專屬稱號。');
+      .setTitle('🎭 小蝴蝶，來領身分組了')
+      .setDescription('點擊下方按鈕即可獲得或移除你想要的身分組。');
 
     const buttonData = [
       // 春綺樓
