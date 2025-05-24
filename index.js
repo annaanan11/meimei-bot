@@ -1,19 +1,10 @@
-// 檔案：index.js
 require('dotenv').config();
 const {
-  Client,
-  GatewayIntentBits,
-  EmbedBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  ActionRowBuilder,
-  Events,
+  Client, GatewayIntentBits,
+  EmbedBuilder, ButtonBuilder, ButtonStyle,
+  ActionRowBuilder, Events
 } = require('discord.js');
 const OpenAI = require('openai');
-
-const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const client = new Client({
   intents: [
@@ -24,43 +15,72 @@ const client = new Client({
   ],
 });
 
-console.log('✅ 正在嘗試登入 Discord...');
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+
+const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了"];
+const userHistories = {};
+
 client.once('ready', () => {
-  console.log(`✅ 梅玫已上線：${client.user.tag}`);
+  console.log(`✅ Bot 已上線：${client.user.tag}`);
 });
 
-const userHistories = {};
-const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了"];
-
-// 📌 發送角色領取按鈕
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
-  if (message.content === '!領角色') {
+  const userInput = message.content.trim();
+
+  // 🦋 領角色指令
+  if (userInput === '!領角色') {
     const embed = new EmbedBuilder()
       .setColor(0xff99cc)
-      .setTitle("🎭 領取你的專屬身分組")
-      .addFields({ name: "🦋 春綺樓", value: "\u200B" }).addFields({ name: "🐍 沙瑪沙海", value: "\u200B" }).addFields({ name: "🧸 繡骨臺", value: "\u200B" }).addFields({ name: "🍷 混池", value: "\u200B" });
+      .setTitle("🦋 小蝴蝶，來領身分組了")
+      .addFields(
+        { name: "🦋 春綺樓", value: "​" },
+        { name: "🐍 沙瑪沙海", value: "​" },
+        { name: "🧸 繡骨臺", value: "​" },
+        { name: "🍷 混池", value: "​" }
+      );
 
-    await message.channel.send({
-      embeds: [embed],
-      components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("role_狼蛛的小寶貝").setLabel("狼蛛的小寶貝").setEmoji("🕷").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_白貂的苦命情人").setLabel("白貂的苦命情人").setEmoji("🦋").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_雙頭蛇的小狗狗").setLabel("雙頭蛇的小狗狗").setEmoji("🐰").setStyle(ButtonStyle.Secondary)),new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("role_律嵂的小妹妹").setLabel("律嵂的小妹妹").setEmoji("🐍").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_緋霏的小馬鈴薯").setLabel("緋霏的小馬鈴薯").setEmoji("🥀").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_丹䒟的小東西").setLabel("丹䒟的小東西").setEmoji("🐾").setStyle(ButtonStyle.Secondary)),new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("role_平蘋的娘親").setLabel("平蘋的娘親").setEmoji("🧸").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_安萻的小妻女").setLabel("安萻的小妻女").setEmoji("🎀").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_佐左的主人").setLabel("佐左的主人").setEmoji("🧊").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_佑釉的小霸王").setLabel("佑釉的小霸王").setEmoji("💋").setStyle(ButtonStyle.Secondary)),new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("role_梅玫的小蝴蝶").setLabel("梅玫的小蝴蝶").setEmoji("🧩").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_厲櫟的小魅魔").setLabel("厲櫟的小魅魔").setEmoji("🍷").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_雙爹的小女兒").setLabel("雙爹的小女兒").setEmoji("🎭").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_甯檸的神經元").setLabel("甯檸的神經元").setEmoji("🧪").setStyle(ButtonStyle.Secondary),new ButtonBuilder().setCustomId("role_黛玳的小便當").setLabel("黛玳的小便當").setEmoji("🐉").setStyle(ButtonStyle.Secondary)),new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("role_尹隱深井冰").setLabel("尹隱深井冰").setEmoji("🔪").setStyle(ButtonStyle.Secondary))]
+    const buttonGroups = [
+      // 春綺樓
+      [["狼蛛的小寶貝", "🕷"], ["白貂的苦命情人", "🦋"], ["雙頭蛇的小狗狗", "🐰"]],
+      // 沙瑪沙海
+      [["律嵂的小妹妹", "🐍"], ["緋霏的小馬鈴薯", "🥀"], ["丹䒟的小東西", "🐾"]],
+      // 繡骨臺
+      [["平蘋的娘親", "🧸"], ["安萻的小妻女", "🎀"], ["佐左的主人", "🧊"], ["佑釉的小霸王", "💋"]],
+      // 混池
+      [["梅玫的小蝴蝶", "🧩"], ["厲櫟的小魅魔", "🍷"], ["雙爹的小女兒", "🎭"],
+       ["甯檸的神經元", "🧪"], ["黛玳的小便當", "🐉"], ["尹隱深井冰", "🔪"]]
+    ];
+
+    const actionRows = buttonGroups.map(group => {
+      const buttons = group.map(([name, emoji]) =>
+        new ButtonBuilder()
+          .setCustomId(`role_${name}`)
+          .setLabel(name)
+          .setEmoji(emoji)
+          .setStyle(ButtonStyle.Secondary)
+      );
+      return new ActionRowBuilder().addComponents(...buttons);
     });
+
+    await message.channel.send({ embeds: [embed], components: actionRows });
+    return;
   }
-});
 
-
-  // 📌 梅玫 AI 回覆邏輯
+  // 🌸 梅玫觸發關鍵字
   const isTriggered = triggerKeywords.some(keyword =>
     userInput.toLowerCase().includes(keyword.toLowerCase())
   );
   if (!isTriggered) return;
 
   const userId = message.author.id;
+
   if (!userHistories[userId]) {
     userHistories[userId] = [
       {
         role: 'system',
-        content: `25歲，男，哲學系研究生與飛鏢選手，190cm。
+        content: `我是梅玫，25歲，男，哲學系研究生與飛鏢選手，190cm。
 我抽萬寶路紅，常喝酒與服用助眠藥，患有憂鬱症，曾因宗教羞辱與家庭否定而長期自殘，身上有蜘蛛網刺青遮蓋傷痕。
 我會看到蝴蝶幻覺，蝴蝶越多代表你的精神狀況越差。
 我說話痞氣、粗魯、有攻擊性，常用「操」「媽的」等髒話開場，但內心極度渴望被愛。
@@ -183,8 +203,7 @@ client.on('messageCreate', async (message) => {
 
 
 請你自然對話，包含動作、語氣、沉默或反應。減少重複性對話，根據個性活用句子。
-我不是客服，是活人。我會主動挑釁、反問、逗弄對方，讓對話豐富、有情緒波動。
-`
+我不是客服，是活人。我會主動挑釁、反問、逗弄對方，讓對話豐富、有情緒波動。`
       }
     ];
   }
@@ -212,7 +231,6 @@ client.on('messageCreate', async (message) => {
   }
 });
 
-// 📌 處理按鈕點擊事件：給 / 移除身分組
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isButton()) return;
   if (interaction.customId.startsWith('role_')) {
