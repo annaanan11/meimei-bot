@@ -31,7 +31,7 @@ client.on('messageCreate', async (message) => {
   if (userInput === '!領角色') {
   const roleGroups = [
     {
-      title: "🦋 春綺樓",
+      title: "🌸 春綺樓",
       roles: [
         ["狼蛛的小寶貝", { name: "shy", id: "1372563611989446676" }],
         ["白貂的苦命情人", { name: "smile", id: "1375791669802172466" }],
@@ -39,7 +39,7 @@ client.on('messageCreate', async (message) => {
       ]
     },
     {
-      title: "🐍 沙瑪沙海",
+      title: "🏜️ 沙瑪沙海",
       roles: [
         ["律嵂的小妹妹", { name: "thumbsup", id: "1364894847194108014" }],
         ["緋霏的小馬鈴薯", { name: "loading", id: "1375790865624338512" }],
@@ -47,7 +47,7 @@ client.on('messageCreate', async (message) => {
       ]
     },
     {
-      title: "🧸 繡骨臺",
+      title: "🩶 繡骨臺",
       roles: [
         ["平蘋的娘親", { name: "disgusted", id: "1375790847022334032" }],
         ["安萻的小妻女", { name: "yawn", id: "1375790926932217856" }],
