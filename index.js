@@ -1,11 +1,18 @@
 // 檔案：index.js
 require('dotenv').config();
-const { Client, GatewayIntentBits } = require('discord.js');
+const {
+  Client,
+  GatewayIntentBits,
+  EmbedBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  Events,
+} = require('discord.js');
 const OpenAI = require('openai');
 
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const client = new Client({
@@ -13,6 +20,7 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
   ],
 });
 
@@ -22,24 +30,54 @@ client.once('ready', () => {
 });
 
 const userHistories = {};
-const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了"]; // ⬅ 你可以自訂這些關鍵字
+const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了"];
 
+// 📌 發送角色領取按鈕
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
 
+  if (userInput === '!領角色') {
+    const embed = new EmbedBuilder()
+      .setColor(0xff99cc)
+      .setTitle('🎭 領取你的專屬身分組')
+      .setDescription('點擊下方按鈕即可獲得或移除你想要的身分組。\n\n每一組代表一位角色的專屬稱號。');
+
+    const buttonData = [
+      ['角色01', '🕷'], ['角色02', '🦋'], ['角色03', '🐰'], ['角色04', '🐍'], ['角色05', '🥀'],
+      ['角色06', '🐾'], ['角色07', '🧸'], ['角色08', '🎀'], ['角色09', '🧊'], ['角色10', '💋'],
+      ['角色11', '🧩'], ['角色12', '🍷'], ['角色13', '🎭'], ['角色14', '🧪'], ['角色15', '🐉'],
+      ['角色16', '🔪'], ['角色17', '📿'], ['角色18', '☁️'],
+    ];
+
+    const actionRows = [];
+    for (let i = 0; i < buttonData.length; i += 5) {
+      const rowButtons = buttonData.slice(i, i + 5).map(([name, emoji]) =>
+        new ButtonBuilder()
+          .setCustomId(`role_${name}`)
+          .setLabel(name)
+          .setEmoji(emoji)
+          .setStyle(ButtonStyle.Secondary)
+      );
+      actionRows.push(new ActionRowBuilder().addComponents(rowButtons));
+    }
+
+    await message.channel.send({ embeds: [embed], components: actionRows });
+    return;
+  }
+
+  // 📌 梅玫 AI 回覆邏輯
   const isTriggered = triggerKeywords.some(keyword =>
     userInput.toLowerCase().includes(keyword.toLowerCase())
   );
   if (!isTriggered) return;
 
   const userId = message.author.id;
-
   if (!userHistories[userId]) {
     userHistories[userId] = [
       {
         role: 'system',
-        content: `你是梅玫，25歲，男，哲學系研究生與飛鏢選手，190cm。
+        content: 25歲，男，哲學系研究生與飛鏢選手，190cm。
 你抽萬寶路紅，常喝酒與服用助眠藥，患有憂鬱症，曾因宗教羞辱與家庭否定而長期自殘，身上有蜘蛛網刺青遮蓋傷痕。
 你會看到蝴蝶幻覺，蝴蝶越多代表你的精神狀況越差。
 你說話痞氣、粗魯、有攻擊性，常用「操」「媽的」等髒話開場，但內心極度渴望被愛。
@@ -162,7 +200,8 @@ client.on('messageCreate', async (message) => {
 
 
 請你自然對話，包含動作、語氣、沉默或反應。減少重複性對話，根據個性活用句子。
-你不是客服，是活人。你會主動挑釁、反問、逗弄對方，讓對話豐富、有情緒波動。`
+你不是客服，是活人。你會主動挑釁、反問、逗弄對方，讓對話豐富、有情緒波動。
+`
       }
     ];
   }
@@ -187,6 +226,27 @@ client.on('messageCreate', async (message) => {
   } catch (err) {
     console.error(err);
     message.reply(`……壞掉了。錯誤訊息是：\`\`\`${err.message}\`\`\``);
+  }
+});
+
+// 📌 處理按鈕點擊事件：給 / 移除身分組
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isButton()) return;
+  if (interaction.customId.startsWith('role_')) {
+    const roleName = interaction.customId.slice(5);
+    const role = interaction.guild.roles.cache.find(r => r.name === roleName);
+    if (!role) {
+      return interaction.reply({ content: `❌ 找不到身分組「${roleName}」`, ephemeral: true });
+    }
+
+    const member = await interaction.guild.members.fetch(interaction.user.id);
+    if (member.roles.cache.has(role.id)) {
+      await member.roles.remove(role);
+      await interaction.reply({ content: `❌ 已移除你的「${roleName}」身分組`, ephemeral: true });
+    } else {
+      await member.roles.add(role);
+      await interaction.reply({ content: `✅ 你現在擁有「${roleName}」身分組！`, ephemeral: true });
+    }
   }
 });
 
