@@ -265,10 +265,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
     const member = await interaction.guild.members.fetch(interaction.user.id);
     if (member.roles.cache.has(role.id)) {
       await member.roles.remove(role);
-      await interaction.reply({ content: `❌ 已移除你的「${roleName}」身分組`, ephemeral: true });
+      await interaction.reply({ content: `❌ 小蝴蝶，你不要「${roleName}」了。`, ephemeral: true });
     } else {
       await member.roles.add(role);
-      await interaction.reply({ content: `✅ 你現在擁有「${roleName}」身分組！`, ephemeral: true });
+      await interaction.reply({ content: `✅ 小蝴蝶，你現在有「${roleName}」了。`, ephemeral: true });
     }
   }
 });
