@@ -17,7 +17,7 @@ const client = new Client({
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
-const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了"];
+const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了", "閉嘴", "吵死"];
 const userHistories = {};
 
 client.once('ready', () => {
