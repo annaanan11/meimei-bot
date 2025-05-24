@@ -40,7 +40,7 @@ client.on('messageCreate', async (message) => {
   if (userInput === '!領角色') {
     const embed = new EmbedBuilder()
       .setColor(0xff99cc)
-      .setTitle('🎭 小蝴蝶，來領身分組了')
+      .setTitle('🦋 小蝴蝶，來領身分組了')
       .setDescription('點擊下方按鈕即可獲得或移除你想要的身分組。');
 
     const buttonData = [
