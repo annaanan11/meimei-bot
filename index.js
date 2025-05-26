@@ -30,7 +30,7 @@ client.on('messageCreate', async (message) => {
 
   if (userInput === '!領角色') {
     await message.channel.send({
-      content: `**點選下方的按鈕來領取身分組**\n未領取將直接踢出\nヽ(・﹏・)ﾉ`
+      content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
     });
 
     const roleGroups = [
