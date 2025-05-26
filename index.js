@@ -268,6 +268,19 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+client.on('error', (error) => {
+  console.error('❌ Discord Client 錯誤：', error);
+});
+
+client.on('shardError', error => {
+  console.error('❌ Discord Shard 錯誤：', error);
+});
+
+process.on('unhandledRejection', error => {
+  console.error('❌ 未捕獲錯誤：', error);
+});
+
+
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isButton()) return;
   if (interaction.customId.startsWith('role_')) {
