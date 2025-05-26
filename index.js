@@ -1,10 +1,19 @@
+// 檔案：index.js
 require('dotenv').config();
 const {
-  Client, GatewayIntentBits,
-  EmbedBuilder, ButtonBuilder, ButtonStyle,
-  ActionRowBuilder, Events
+  Client,
+  GatewayIntentBits,
+  EmbedBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+  Events,
 } = require('discord.js');
 const OpenAI = require('openai');
+
+const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const client = new Client({
   intents: [
@@ -15,19 +24,17 @@ const client = new Client({
   ],
 });
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
-const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了", "閉嘴", "吵死"];
-const userHistories = {};
-
+console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
-  console.log(`✅ Bot 已上線：${client.user.tag}`);
+  console.log(`✅ 梅玫已上線：${client.user.tag}`);
 });
 
+const userHistories = {};
+const triggerKeywords = ["梅玫", "打手槍", "好色", "好煩", "崩潰", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "謝謝", "女人", "不可以", "愛了", "閉嘴", "吵死"];
+
+// 📌 發送角色領取按鈕，我等等改成你的角色，這裡略過
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
-  const userInput = message.content.trim();
-
   if (userInput === '!領角色') {
     await message.channel.send({
       content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
@@ -100,13 +107,13 @@ client.on('messageCreate', async (message) => {
     return;
   }
 
+  // 📌 梅玫 AI 回覆邏輯
   const isTriggered = triggerKeywords.some(keyword =>
     userInput.toLowerCase().includes(keyword.toLowerCase())
   );
   if (!isTriggered) return;
 
   const userId = message.author.id;
-
   if (!userHistories[userId]) {
     userHistories[userId] = [
       {
@@ -262,6 +269,7 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+// 📌 處理按鈕點擊事件：給 / 移除身分組
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isButton()) return;
   if (interaction.customId.startsWith('role_')) {
