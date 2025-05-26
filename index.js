@@ -69,7 +69,6 @@ client.on('messageCreate', async (message) => {
     {
       title: "❤️‍🔥 我想...",
       roles: [
-        ["娜娜ㄗ的小老婆", { name: "sunglasses", id: "1375790896041300060" }],
         ["世間情", { name: "blush3", id: "1363191319383638107" }],
       ]
     }
