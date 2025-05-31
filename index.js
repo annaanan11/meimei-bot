@@ -91,7 +91,7 @@ client.on('messageCreate', async (message) => {
           ["甯檸的神經元", { name: "plead", id: "1375790871726919761" }],
           ["黛玳的小便當", { name: "bulgingeyes", id: "1368984596942684283" }],
           ["尹隱深井冰", { name: "dead", id: "1375790844296036362" }],
-          ["尹隱深井冰", { name: "hearteyes", id: "1376623463778746389" }]
+          ["嶽昀的小娘子", { name: "hearteyes", id: "1376623463778746389" }]
         ]
       },
       {
