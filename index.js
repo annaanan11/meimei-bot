@@ -124,77 +124,77 @@ client.on('messageCreate', async (message) => {
     return;
   }
     if (userInput === '!阿梅發角色') {
-    await message.channel.send({
-      content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
-    });
+  await message.channel.send({
+    content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
+  });
 
-    const roleGroups = [
-      {
-        title: "🌸 春綺樓",
-        roles: [
-          ["狼蛛的小寶貝"],
-          ["白貂的苦命情人"],
-          ["雙頭蛇的小狗狗"]
-        ]
-      },
-      {
-        title: "🏜️ 沙瑪沙姆",
-        roles: [
-          ["律嵂的小妹妹"],
-          ["緋霏的小馬鈴薯"],
-          ["丹䒟的小東西"]
-        ]
-      },
-      {
-        title: "🩶 繡骨臺",
-        roles: [
-          ["平蘋的娘親"],
-          ["安萻的小妻女"],
-          ["佐左的主人"],
-          ["佑釉的小霸王"],
-          ["嶽昀的小娘子"]
-        ]
-      },
-      {
-        title: "🍷 混池",
-        roles: [
-          ["梅玫的小蝴蝶"],
-          ["厲櫟的小魅魔"],
-          ["雙爹的小女兒"],
-          ["甯檸的神經元"],
-          ["黛玳的小便當"],
-          ["尹隱深井冰"]
-        ]
-      },
-      {
-        title: "❤️‍🔥 我想...",
-        roles: [
-          ["世間情"],
-        ]
-      }
-    ];
-
-    for (const group of roleGroups) {
-      const embed = new EmbedBuilder()
-        .setTitle(group.title)
-        .setColor(0xff99cc);
-
-      const rows = [];
-      for (let i = 0; i < group.roles.length; i += 5) {
-        const rowButtons = group.roles.slice(i, i + 5).map(([name, emoji]) =>
-          new ButtonBuilder()
-            .setCustomId(`role_${name}`)
-            .setLabel(name)
-            .setEmoji({ name: emoji.name, id: emoji.id })
-            .setStyle(ButtonStyle.Secondary)
-        );
-        rows.push(new ActionRowBuilder().addComponents(...rowButtons));
-      }
-
-      await message.channel.send({ embeds: [embed], components: rows });
+  const roleGroups = [
+    {
+      title: "🌸 春綺樓",
+      roles: [
+        "狼蛛的小寶貝",
+        "白貂的苦命情人",
+        "雙頭蛇的小狗狗"
+      ]
+    },
+    {
+      title: "🏜️ 沙瑪沙姆",
+      roles: [
+        "律嵂的小妹妹",
+        "緋霏的小馬鈴薯",
+        "丹䒟的小東西"
+      ]
+    },
+    {
+      title: "🩶 繡骨臺",
+      roles: [
+        "平蘋的娘親",
+        "安萻的小妻女",
+        "佐左的主人",
+        "佑釉的小霸王",
+        "嶽昀的小娘子"
+      ]
+    },
+    {
+      title: "🍷 混池",
+      roles: [
+        "梅玫的小蝴蝶",
+        "厲櫟的小魅魔",
+        "雙爹的小女兒",
+        "甯檸的神經元",
+        "黛玳的小便當",
+        "尹隱深井冰"
+      ]
+    },
+    {
+      title: "❤️‍🔥 我想...",
+      roles: [
+        "世間情"
+      ]
     }
-    return;
+  ];
+
+  for (const group of roleGroups) {
+    const embed = new EmbedBuilder()
+      .setTitle(group.title)
+      .setColor(0xff99cc);
+
+    const rows = [];
+    for (let i = 0; i < group.roles.length; i += 5) {
+      const rowButtons = group.roles.slice(i, i + 5).map((name) =>
+        new ButtonBuilder()
+          .setCustomId(`role_${name}`)
+          .setLabel(name)
+          .setStyle(ButtonStyle.Secondary)
+      );
+      rows.push(new ActionRowBuilder().addComponents(...rowButtons));
+    }
+
+    await message.channel.send({ embeds: [embed], components: rows });
   }
+  return;
+}
+
 
   const isTriggered = triggerKeywords.some(keyword =>
     userInput.toLowerCase().includes(keyword.toLowerCase())
