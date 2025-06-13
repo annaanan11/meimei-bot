@@ -50,6 +50,7 @@ client.on('messageCreate', async (message) => {
     "!安萻": "5455",
     "!平蘋": "5863",
     "!嶽昀": "9494",
+    "!尹隱": "6357"
   };
 
   if (passwordMap[userInput]) {
