@@ -49,7 +49,28 @@ client.on('messageCreate', async (message) => {
     ]
   });
 }
+  const { Client, GatewayIntentBits, Partials } = require('discord.js');
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers // ⚠️ 需要這個才能接收到成員加入/離開事件
+  ],
+  partials: [Partials.GuildMember]
+});
 
+client.once('ready', () => {
+  console.log(`🤖 Bot 上線：${client.user.tag}`);
+});
+
+// 當成員離開伺服器時觸發
+client.on('guildMemberRemove', member => {
+  const channelId = 'bye'; // 📝 換成你要發送通知的頻道 ID
+  const channel = member.guild.channels.cache.get(channelId);
+
+  if (channel) {
+    channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
+  }
+});
 
   if (userInput === '!領角色') {
     await message.channel.send({
