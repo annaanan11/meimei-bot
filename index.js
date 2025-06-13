@@ -47,10 +47,11 @@ client.on('messageCreate', async (message) => {
   const userInput = message.content.trim();
 
   const passwordMap = {
-    "!安萻": "5455",
-    "!平蘋": "5863",
-    "!嶽昀": "9494",
-    "!尹隱": "6357"
+    "!安萻": "8956",
+    "!平蘋": "4521",
+    "!嶽昀": "8625",
+    "!尹隱": "6357",
+    "!修·修果": "6952",
   };
 
   if (passwordMap[userInput]) {
