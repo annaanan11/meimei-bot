@@ -49,29 +49,18 @@ client.on('messageCreate', async (message) => {
     ]
   });
 }
-  const { Client, GatewayIntentBits, Partials } = require('discord.js');
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers // ⚠️ 需要這個才能接收到成員加入/離開事件
-  ],
-  partials: [Partials.GuildMember]
-});
-
-client.once('ready', () => {
-  console.log(`🤖 Bot 上線：${client.user.tag}`);
-});
-
-// 當成員離開伺服器時觸發
-client.on('guildMemberRemove', member => {
-  const channelId = 'bye'; // 📝 換成你要發送通知的頻道 ID
+  client.on('guildMemberRemove', member => {
+  const channelId = '1382903529114701874'; // ← 改成你的文字頻道 ID
   const channel = member.guild.channels.cache.get(channelId);
 
-  if (channel) {
+  if (channel && channel.isTextBased()) {
     channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
+  } else {
+    console.warn(`❌ 找不到指定的頻道或該頻道不是文字頻道`);
   }
 });
 
+  
   if (userInput === '!領角色') {
     await message.channel.send({
       content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
