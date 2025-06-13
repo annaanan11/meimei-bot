@@ -68,6 +68,36 @@ if (passwordMap[userInput]) {
 
   return;
 }
+   // ✅ 密碼統計
+  if (userInput === '!查密碼統計') {
+  let report = '📊 密碼使用統計：\n';
+  for (const [cmd, count] of Object.entries(passwordUsageStats)) {
+    report += `- ${cmd}：${count} 次\n`;
+  }
+  await message.reply(report || '目前尚無統計資料');
+  return;
+}
+  if (userInput.startsWith('!查使用者 ')) {
+  const mention = userInput.split(' ')[1]; // e.g. <@123...>
+  const userId = mention.replace(/[<@!>]/g, '');
+
+  const logs = userUsageLog[userId];
+  if (!logs) {
+    return message.reply('找不到此使用者的紀錄。');
+  }
+
+  const summary = logs.reduce((acc, cmd) => {
+    acc[cmd] = (acc[cmd] || 0) + 1;
+    return acc;
+  }, {});
+
+  let report = `🧾 ${mention} 的使用記錄：\n`;
+  for (const [cmd, count] of Object.entries(summary)) {
+    report += `- ${cmd}：${count} 次\n`;
+  }
+  await message.reply(report);
+  return;
+}
   
   // ✅ 身分組
   if (userInput === '!領角色') {
