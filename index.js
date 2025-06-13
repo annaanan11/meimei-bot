@@ -35,30 +35,14 @@ client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
 
-  if (userInput === '!emoji') {
-  await message.channel.send({
-    content: '測試 emoji：shy',
-    components: [
-      new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-          .setCustomId('test_emoji')
-          .setLabel('狼蛛的小寶貝')
-          .setEmoji({ name: 'shy', id: '1372563611989446676' })
-          .setStyle(ButtonStyle.Secondary)
-      )
-    ]
-  });
-}
   client.on('guildMemberRemove', member => {
-  const channelId = '1382903529114701874'; // ← 改成你的文字頻道 ID
-  const channel = member.guild.channels.cache.get(channelId);
-
+  console.log(`👋 成員離開：${member.user.tag}`);
+  const channel = member.guild.channels.cache.get('1382903529114701874');
   if (channel && channel.isTextBased()) {
     channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
-  } else {
-    console.warn(`❌ 找不到指定的頻道或該頻道不是文字頻道`);
   }
 });
+
 
   
   if (userInput === '!領角色') {
