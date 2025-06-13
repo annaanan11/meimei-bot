@@ -27,24 +27,26 @@ console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
 });
-
+// ✅ 關鍵字
 const userHistories = {};
 const triggerKeywords = ["梅玫", "打手槍", "好煩", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "女人", "不可以", "閉嘴", "吵死"];
 
-client.on('messageCreate', async (message) => {
-  if (message.author.bot) return;
-  const userInput = message.content.trim();
+  // ✅ 離開伺服器通知（只觸發一次，不重複）
+client.on('guildMemberRemove', member => {
+  const channelId = '1382903529114701874'; // 👈 bye 頻道 ID
+  const channel = member.guild.channels.cache.get(channelId);
 
-  client.on('guildMemberRemove', member => {
-  console.log(`👋 成員離開：${member.user.tag}`);
-  const channel = member.guild.channels.cache.get('1382903529114701874');
   if (channel && channel.isTextBased()) {
     channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
   }
 });
 
+  // ✅ 訊息處理區
+client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  const userInput = message.content.trim();
 
-  
+  // ✅ 身分組
   if (userInput === '!領角色') {
     await message.channel.send({
       content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
@@ -189,7 +191,7 @@ client.on('messageCreate', async (message) => {
   return;
 }
 
-
+ // ✅ 梅玫 AI 觸發條件
   const isTriggered = triggerKeywords.some(keyword =>
     userInput.toLowerCase().includes(keyword.toLowerCase())
   );
@@ -316,6 +318,7 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+// ✅ 按鈕互動：領取／移除身分組
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isButton()) return;
   if (interaction.customId.startsWith('role_')) {
