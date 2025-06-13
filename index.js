@@ -58,11 +58,11 @@ if (passwordMap[userInput]) {
   const password = passwordMap[userInput];
 
   try {
-    await message.author.send(`🔐 你的網站密碼是：\`${password}\``);
-    await message.reply('✅ 密碼已私訊給你，請查收。');
+    await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
+    await message.reply('✅ 操，小蝴蝶，看私訊。');
   } catch (err) {
     console.error('❌ 私訊失敗：', err);
-    await message.reply('⚠️ 無法發送私訊，請開啟你的私人訊息功能。');
+    await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
   }
 
   return;
