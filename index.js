@@ -47,7 +47,7 @@ client.on('messageCreate', async (message) => {
   const userInput = message.content.trim();
 
   // ✅ 密碼
-  const passwordMap = {
+const passwordMap = {
   "!安萻": "5455",
   "!平蘋": "5863",
   "!嶽昀": "9494",
@@ -56,6 +56,7 @@ client.on('messageCreate', async (message) => {
 
 if (passwordMap[userInput]) {
   const password = passwordMap[userInput];
+  const characterName = userInput.slice(1); // 👈 補上這行！
 
   try {
     await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
