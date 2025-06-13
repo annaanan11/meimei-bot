@@ -23,6 +23,9 @@ const client = new Client({
   ],
 });
 
+const passwordUsageStats = {};
+const userUsageLog = {};
+
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
@@ -31,22 +34,42 @@ client.once('ready', () => {
 const userHistories = {};
 const triggerKeywords = ["梅玫", "打手槍", "好煩", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "女人", "不可以", "閉嘴", "吵死"];
 
-  // ✅ 離開伺服器通知（只觸發一次，不重複）
 client.on('guildMemberRemove', member => {
-  const channelId = '1382903529114701874'; // 👈 bye 頻道 ID
+  const channelId = '1382903529114701874';
   const channel = member.guild.channels.cache.get(channelId);
-
   if (channel && channel.isTextBased()) {
     channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
   }
 });
-
-  // ✅ 訊息處理區
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
 
-  // ✅ 密碼
+  const passwordMap = {
+    "!安萻": "5455",
+    "!平蘋": "5863",
+    "!嶽昀": "9494",
+  };
+
+  if (passwordMap[userInput]) {
+    const password = passwordMap[userInput];
+    const characterName = userInput.slice(1);
+
+    passwordUsageStats[userInput] = (passwordUsageStats[userInput] || 0) + 1;
+    const userId = message.author.id;
+    if (!userUsageLog[userId]) userUsageLog[userId] = [];
+    userUsageLog[userId].push(userInput);
+
+    try {
+      await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
+      await message.reply('✅ 操，小蝴蝶，看私訊。');
+    } catch (err) {
+      console.error('❌ 私訊失敗：', err);
+      await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
+    }
+
+    return;
+  }  
 const passwordMap = {
   "!安萻": "5455",
   "!平蘋": "5863",
@@ -70,34 +93,14 @@ if (passwordMap[userInput]) {
 }
    // ✅ 密碼統計
   if (userInput === '!查密碼統計') {
-  let report = '📊 密碼使用統計：\n';
-  for (const [cmd, count] of Object.entries(passwordUsageStats)) {
-    report += `- ${cmd}：${count} 次\n`;
-  }
-  await message.reply(report || '目前尚無統計資料');
-  return;
-}
-  if (userInput.startsWith('!查使用者 ')) {
-  const mention = userInput.split(' ')[1]; // e.g. <@123...>
-  const userId = mention.replace(/[<@!>]/g, '');
-
-  const logs = userUsageLog[userId];
-  if (!logs) {
-    return message.reply('找不到此使用者的紀錄。');
+    let report = '📊 密碼使用統計：\n';
+    for (const [cmd, count] of Object.entries(passwordUsageStats)) {
+      report += `- ${cmd}：${count} 次\n`;
+    }
+    await message.reply(report || '目前尚無統計資料');
+    return;
   }
 
-  const summary = logs.reduce((acc, cmd) => {
-    acc[cmd] = (acc[cmd] || 0) + 1;
-    return acc;
-  }, {});
-
-  let report = `🧾 ${mention} 的使用記錄：\n`;
-  for (const [cmd, count] of Object.entries(summary)) {
-    report += `- ${cmd}：${count} 次\n`;
-  }
-  await message.reply(report);
-  return;
-}
   
   // ✅ 身分組
   if (userInput === '!領角色') {
