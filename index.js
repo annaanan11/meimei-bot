@@ -30,7 +30,7 @@ console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
 });
-// ✅ 關鍵字
+
 const userHistories = {};
 const triggerKeywords = ["梅玫", "打手槍", "好煩", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "女人", "不可以", "閉嘴", "吵死"];
 
@@ -41,6 +41,7 @@ client.on('guildMemberRemove', member => {
     channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
   }
 });
+
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
@@ -67,31 +68,9 @@ client.on('messageCreate', async (message) => {
       console.error('❌ 私訊失敗：', err);
       await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
     }
-
     return;
-  }  
-const passwordMap = {
-  "!安萻": "5455",
-  "!平蘋": "5863",
-  "!嶽昀": "9494",
-  // 可擴充更多
-};
-
-if (passwordMap[userInput]) {
-  const password = passwordMap[userInput];
-  const characterName = userInput.slice(1); // 👈 補上這行！
-
-  try {
-    await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
-    await message.reply('✅ 操，小蝴蝶，看私訊。');
-  } catch (err) {
-    console.error('❌ 私訊失敗：', err);
-    await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
   }
 
-  return;
-}
-   // ✅ 密碼統計
   if (userInput === '!查密碼統計') {
     let report = '📊 密碼使用統計：\n';
     for (const [cmd, count] of Object.entries(passwordUsageStats)) {
