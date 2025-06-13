@@ -46,6 +46,28 @@ client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
 
+  // ✅ 密碼
+  const passwordMap = {
+  "!安萻": "5455",
+  "!平蘋": "5863",
+  "!嶽昀": "9494",
+  // 可擴充更多
+};
+
+if (passwordMap[userInput]) {
+  const password = passwordMap[userInput];
+
+  try {
+    await message.author.send(`🔐 你的網站密碼是：\`${password}\``);
+    await message.reply('✅ 密碼已私訊給你，請查收。');
+  } catch (err) {
+    console.error('❌ 私訊失敗：', err);
+    await message.reply('⚠️ 無法發送私訊，請開啟你的私人訊息功能。');
+  }
+
+  return;
+}
+  
   // ✅ 身分組
   if (userInput === '!領角色') {
     await message.channel.send({
