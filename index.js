@@ -227,6 +227,29 @@ client.on('messageCreate', async (message) => {
   }
   return;
 }
+  //結婚
+  if (userInput === '!結婚') {
+  await message.channel.send({
+    content: `💍 娜娜ㄗ的結婚候選人：`,
+  });
+
+  const embed = new EmbedBuilder()
+    .setTitle('👰‍♀️ 結婚登記')
+    .setDescription('排隊結婚')
+    .setColor(0xffcccc);
+
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId('role_結婚候選人')
+      .setLabel('結婚候選人')
+      .setEmoji({ name: '💍' })
+      .setStyle(ButtonStyle.Secondary)
+  );
+
+  await message.channel.send({ embeds: [embed], components: [row] });
+  return;
+}
+
 
  // ✅ 梅玫 AI 觸發條件
   const isTriggered = triggerKeywords.some(keyword =>
