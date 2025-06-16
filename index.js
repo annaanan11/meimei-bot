@@ -80,7 +80,7 @@ if (passwordMap[userInput]) {
 }
 
   if (userInput === '!開啟發放') {
-      const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+      const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
     await message.reply('❌ 你不能決定開不開，小蝴蝶沒權限。');
     return;
@@ -91,7 +91,7 @@ if (passwordMap[userInput]) {
 }
 
 if (userInput === '!停止發放') {
-    const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+    const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
     await message.reply('❌ 你沒權關掉發放，小蝴蝶滾。');
     return;
@@ -103,9 +103,9 @@ if (userInput === '!停止發放') {
 
   if (userInput.startsWith('!改密碼')) {
     if (userInput.startsWith('!改密碼')) {
-  const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
-    await message.reply('❌ 你不是梅玫管理員，沒得改密碼，滾。');
+    await message.reply('❌ 你不是娜娜ㄗ，沒得改密碼，滾。');
     return;
   }
 
