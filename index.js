@@ -25,6 +25,7 @@ const client = new Client({
 
 const passwordUsageStats = {};
 const userUsageLog = {};
+let allowPasswordSend = true;
 
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
@@ -54,24 +55,41 @@ client.on('messageCreate', async (message) => {
     "!修·修果": "6952",
   };
 
-  if (passwordMap[userInput]) {
-    const password = passwordMap[userInput];
-    const characterName = userInput.slice(1);
-
-    passwordUsageStats[userInput] = (passwordUsageStats[userInput] || 0) + 1;
-    const userId = message.author.id;
-    if (!userUsageLog[userId]) userUsageLog[userId] = [];
-    userUsageLog[userId].push(userInput);
-
-    try {
-      await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
-      await message.reply('✅ 操，小蝴蝶，看私訊。');
-    } catch (err) {
-      console.error('❌ 私訊失敗：', err);
-      await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
-    }
+if (passwordMap[userInput]) {
+  if (!allowPasswordSend) {
+    await message.reply('⚠️ 密碼發送目前已停止，請等待再次開啟。');
     return;
   }
+
+  const password = passwordMap[userInput];
+  const characterName = userInput.slice(1);
+
+  passwordUsageStats[userInput] = (passwordUsageStats[userInput] || 0) + 1;
+  const userId = message.author.id;
+  if (!userUsageLog[userId]) userUsageLog[userId] = [];
+  userUsageLog[userId].push(userInput);
+
+  try {
+    await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
+    await message.reply('✅ 操，小蝴蝶，看私訊。');
+  } catch (err) {
+    console.error('❌ 私訊失敗：', err);
+    await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
+  }
+  return;
+}
+
+  if (userInput === '!開啟發放') {
+  allowPasswordSend = true;
+  await message.reply('✅ 密碼發送已開啟。');
+  return;
+}
+
+if (userInput === '!停止發放') {
+  allowPasswordSend = false;
+  await message.reply('🚫 密碼發送已停止。');
+  return;
+}
 
   if (userInput === '!查密碼統計') {
     let report = '📊 密碼使用統計：\n';
