@@ -57,7 +57,7 @@ client.on('messageCreate', async (message) => {
 
 if (passwordMap[userInput]) {
   if (!allowPasswordSend) {
-    await message.reply('⚠️ 密碼發送目前已停止，請等待再次開啟。');
+    await message.reply('⚠️ 操，不能領，笨蝶。');
     return;
   }
 
@@ -81,13 +81,13 @@ if (passwordMap[userInput]) {
 
   if (userInput === '!開啟發放') {
   allowPasswordSend = true;
-  await message.reply('✅ 密碼發送已開啟。');
+  await message.reply('✅ 要密碼嗎？給你。');
   return;
 }
 
 if (userInput === '!停止發放') {
   allowPasswordSend = false;
-  await message.reply('🚫 密碼發送已停止。');
+  await message.reply('🚫 沒密碼給你，哼。');
   return;
 }
 
