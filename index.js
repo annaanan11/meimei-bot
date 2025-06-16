@@ -99,6 +99,15 @@ if (userInput === '!停止發放') {
     await message.reply(report || '目前尚無統計資料');
     return;
   }
+  if (userInput === '!查所有密碼') {
+  let result = '🧾 所有角色密碼：\n';
+  for (const [cmd, pwd] of Object.entries(passwordMap)) {
+    result += `${cmd}：${pwd}\n`;
+  }
+  await message.reply(result || '目前沒有任何密碼。');
+  return;
+}
+
 
   
   // ✅ 身分組
