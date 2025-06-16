@@ -101,8 +101,7 @@ if (userInput === '!停止發放') {
   return;
 }
 
-  if (userInput.startsWith('!改密碼')) {
-    if (userInput.startsWith('!改密碼')) {
+  if (userInput.startsWith('!改密碼 ')) {
   const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
     await message.reply('❌ 你不是娜娜ㄗ，沒得改密碼，滾。');
@@ -124,24 +123,7 @@ if (userInput === '!停止發放') {
   }
   return;
 }
-  const parts = userInput.split(' ');
-  if (parts.length === 3) {
-    const targetCmd = parts[1]; // e.g. !安萻
-    const newPwd = parts[2];    // e.g. 1234
-
-    if (passwordMap[targetCmd]) {
-      passwordMap[targetCmd] = newPwd;
-      await message.reply(`🔧 ${targetCmd} 的密碼已更新為：\`${newPwd}\``);
-    } else {
-      await message.reply(`❌ 找不到角色：${targetCmd}`);
-    }
-  } else {
-    await message.reply('❗ 請用正確格式輸入：`!改密碼 !角色名稱 新密碼`');
-  }
-  return;
-}
-
-
+  
   if (userInput === '!查密碼統計') {
     let report = '📊 密碼使用統計：\n';
     for (const [cmd, count] of Object.entries(passwordUsageStats)) {
@@ -150,6 +132,39 @@ if (userInput === '!停止發放') {
     await message.reply(report || '目前尚無統計資料');
     return;
   }
+
+  if (userInput.startsWith('!改密碼多筆')) {
+  const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  if (!isAdmin) {
+    await message.reply('❌ 你沒權限一次改那麼多，小蝴蝶滾。');
+    return;
+  }
+
+  // 把訊息內容拆成多行
+  const lines = message.content.split('\n').slice(1); // 第一行是 !改密碼多筆，跳過
+  let reply = '';
+
+  for (const line of lines) {
+    const parts = line.trim().split(' ');
+    if (parts.length === 2) {
+      const targetCmd = parts[0];
+      const newPwd = parts[1];
+      if (passwordMap[targetCmd]) {
+        passwordMap[targetCmd] = newPwd;
+        reply += `🔧 ${targetCmd} 的密碼已更新為：\`${newPwd}\`\n`;
+      } else {
+        reply += `❌ 找不到角色：${targetCmd}\n`;
+      }
+    } else {
+      reply += `⚠️ 格式錯誤：${line}\n`;
+    }
+  }
+
+  await message.reply(reply || '❗ 沒有成功處理任何密碼');
+  return;
+}
+
+  
   if (userInput === '!查所有密碼') {
    const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
   if (!isAdmin) {
