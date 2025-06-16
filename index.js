@@ -80,16 +80,67 @@ if (passwordMap[userInput]) {
 }
 
   if (userInput === '!開啟發放') {
+      const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  if (!isAdmin) {
+    await message.reply('❌ 你不能決定開不開，小蝴蝶沒權限。');
+    return;
+  }
   allowPasswordSend = true;
   await message.reply('✅ 要密碼嗎？給你。');
   return;
 }
 
 if (userInput === '!停止發放') {
+    const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  if (!isAdmin) {
+    await message.reply('❌ 你沒權關掉發放，小蝴蝶滾。');
+    return;
+  }
   allowPasswordSend = false;
   await message.reply('🚫 沒密碼給你，哼。');
   return;
 }
+
+  if (userInput.startsWith('!改密碼')) {
+    if (userInput.startsWith('!改密碼')) {
+  const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  if (!isAdmin) {
+    await message.reply('❌ 你不是梅玫管理員，沒得改密碼，滾。');
+    return;
+  }
+
+  const parts = userInput.split(' ');
+  if (parts.length === 3) {
+    const targetCmd = parts[1];
+    const newPwd = parts[2];
+    if (passwordMap[targetCmd]) {
+      passwordMap[targetCmd] = newPwd;
+      await message.reply(`🔧 ${targetCmd} 的密碼已更新為：\`${newPwd}\``);
+    } else {
+      await message.reply(`❌ 找不到角色：${targetCmd}`);
+    }
+  } else {
+    await message.reply('❗ 請用正確格式輸入：`!改密碼 !角色名稱 新密碼`');
+  }
+  return;
+}
+  const parts = userInput.split(' ');
+  if (parts.length === 3) {
+    const targetCmd = parts[1]; // e.g. !安萻
+    const newPwd = parts[2];    // e.g. 1234
+
+    if (passwordMap[targetCmd]) {
+      passwordMap[targetCmd] = newPwd;
+      await message.reply(`🔧 ${targetCmd} 的密碼已更新為：\`${newPwd}\``);
+    } else {
+      await message.reply(`❌ 找不到角色：${targetCmd}`);
+    }
+  } else {
+    await message.reply('❗ 請用正確格式輸入：`!改密碼 !角色名稱 新密碼`');
+  }
+  return;
+}
+
 
   if (userInput === '!查密碼統計') {
     let report = '📊 密碼使用統計：\n';
@@ -100,6 +151,11 @@ if (userInput === '!停止發放') {
     return;
   }
   if (userInput === '!查所有密碼') {
+   const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  if (!isAdmin) {
+    await message.reply('❌ 不准你偷看密碼，小蝴蝶滾。');
+    return;
+  }
   let result = '🧾 所有角色密碼：\n';
   for (const [cmd, pwd] of Object.entries(passwordMap)) {
     result += `${cmd}：${pwd}\n`;
@@ -107,6 +163,7 @@ if (userInput === '!停止發放') {
   await message.reply(result || '目前沒有任何密碼。');
   return;
 }
+
 
 
   
