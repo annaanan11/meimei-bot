@@ -134,7 +134,7 @@ if (userInput === '!停止發放') {
   }
 
   if (userInput.startsWith('!改密碼多筆')) {
-  const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+  const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
     await message.reply('❌ 你沒權限一次改那麼多，小蝴蝶滾。');
     return;
@@ -166,7 +166,7 @@ if (userInput === '!停止發放') {
 
   
   if (userInput === '!查所有密碼') {
-   const isAdmin = message.member.roles.cache.some(role => role.name === '梅玫管理員');
+   const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
     await message.reply('❌ 不准你偷看密碼，小蝴蝶滾。');
     return;
