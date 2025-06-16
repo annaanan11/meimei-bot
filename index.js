@@ -26,6 +26,14 @@ const client = new Client({
 const passwordUsageStats = {};
 const userUsageLog = {};
 let allowPasswordSend = true;
+let passwordMap = {
+  "!安萻": "8956",
+  "!平蘋": "4521",
+  "!嶽昀": "8625",
+  "!尹隱": "6357",
+  "!修·修果": "6952",
+};
+
 
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
@@ -46,14 +54,6 @@ client.on('guildMemberRemove', member => {
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
-
-  const passwordMap = {
-    "!安萻": "8956",
-    "!平蘋": "4521",
-    "!嶽昀": "8625",
-    "!尹隱": "6357",
-    "!修·修果": "6952",
-  };
 
 if (passwordMap[userInput]) {
   if (!allowPasswordSend) {
