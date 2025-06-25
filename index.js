@@ -102,12 +102,12 @@ if (passwordMap[userInput]) {
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'Onlyadult');
 
-  if(
-    retrictedCommandsForOnlyAdult.includes(userInput) &&
-    hasOnlyAdult &&
-    !hasHehe
-  ){
-    await messeage.reply('NONO，小蝴蝶不乖，不能領喔。');
+  if (
+  restrictedCommandsForOnlyAdult.includes(userInput) &&
+  hasOnlyAdult &&
+  !hasHehe
+){
+    await message.reply('NONO，小蝴蝶不乖，不能領喔。');
     return;
   }
   
