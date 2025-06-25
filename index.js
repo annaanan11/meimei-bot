@@ -91,26 +91,48 @@ client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
 
-if (passwordMap[userInput]) {
-  const restrictedCommandsForOnlyAdult = [
-    "!修‧修果",
-    "!雙爹",
-    "!平蘋",
-  ];
+const passwordAccessRules = {
+  "!厲櫟": "all",
+  "!梅玫": "all",
+  "!春綺樓": "all",
+  "!白貂": "all",
+  "!沙姆沙馬宮": "all",
+  "!繡骨臺": "all",
+  "!平蘋": "hehe",
+  "!安萻": "all",
+  "!佐左": "all",
+  "!佑釉": "all",
+  "!修‧修果": "hehe",
+  "!甯檸": "hehe",
+  "!Hugh‧Hugo": "hehe",
+  "!黛玳": "all",
+  "!尹隱": "hehe",
+  "!雙爹": "hehe",
+  "!大二檸": "all",
+  "!嶽昀": "all",
+  "!烏鴉宅": "hehe",
+  "!尚姠夏廈": "all"
+};
 
+if (passwordMap[userInput]) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'Onlyadult');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
+  const isAdmin = member.permissions.has('Administrator');
 
-  if (
-  restrictedCommandsForOnlyAdult.includes(userInput) &&
-  hasOnlyAdult &&
-  !hasHehe
-){
-    await message.reply('NONO，小蝴蝶不乖，不能領喔。');
+  const accessLevel = passwordAccessRules[userInput];
+
+  if (accessLevel === "hehe" && !hasHehe) {
+    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶不夠格。");
     return;
   }
-  
+  if (accessLevel === "admin" && !isAdmin) {
+    await message.reply("🚫 這是管理員限定角色，小蝴蝶別調皮。");
+    return;
+  }
+
+
+
   if (!allowPasswordSend) {
     await message.reply('⚠️ 操，不能領，笨蝶。');
     return;
