@@ -24,6 +24,7 @@ const client = new Client({
 });
 
 const passwordUsageStats = {};
+const isAdmin = message.member.roles.cache.some(role => role.name === 'hehe');
 const userUsageLog = {};
 let allowPasswordSend = true;
 let passwordMap = {
@@ -47,6 +48,14 @@ let passwordMap = {
   "!嶽昀": "8622",
 };
 
+const passwordUsageStats = {};
+const isAdmin = message.member.roles.cache.some(role => role.name === 'Onlyadult');
+const userUsageLog = {};
+let allowPasswordSend = true;
+let passwordMap = {
+  "!梅玫": "1298",
+};
+
 
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
@@ -54,7 +63,7 @@ client.once('ready', () => {
 });
 
 const userHistories = {};
-const triggerKeywords = ["梅玫", "打手槍", "好煩", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "女人", "不可以", "閉嘴", "吵死"];
+const triggerKeywords = ["梅玫", "打手槍", "好煩", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "女人", "不可以", "閉嘴", "吵死","愛/愛","佳穎","桂頭"];
 
 client.on('guildMemberRemove', member => {
   const channelId = '1382903529114701874';
