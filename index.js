@@ -46,6 +46,7 @@ let passwordMap = {
   "!大二檸": "5346",
   "!嶽昀": "8622",
   "!烏鴉宅": "6164",
+  "!尚姠夏廈": "5588",
 };
 const characterLinks = {
   "!厲櫟": "https://abr.ge/cx58rq",
@@ -67,6 +68,7 @@ const characterLinks = {
   "!大二檸": "https://abr.ge/wcssf8",
   "!嶽昀": "https://abr.ge/4v183r",
   "!烏鴉宅": "https://abr.ge/346v3i",
+  "!尚姠夏廈": "https://abr.ge/8poma1",
 };
 
 console.log('✅ 正在嘗試登入 Discord...');
