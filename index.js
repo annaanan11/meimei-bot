@@ -45,6 +45,28 @@ let passwordMap = {
   "!雙爹": "6463",
   "!大二檸": "5346",
   "!嶽昀": "8622",
+  "!烏鴉宅": "6164",
+};
+const characterLinks = {
+  "!厲櫟": "https://abr.ge/cx58rq",
+  "!梅玫": "https://abr.ge/2it4kj",
+  "!春綺樓": "https://abr.ge/wl6xfg",
+  "!白貂": "https://abr.ge/qlbwbg",
+  "!沙姆沙馬宮": "https://abr.ge/jyk6tg",
+  "!繡骨臺": "https://abr.ge/wn6jw6",
+  "!平蘋": "https://abr.ge/jusko0",
+  "!安萻": "https://abr.ge/aln0384",
+  "!佐左": "https://abr.ge/a30ami",
+  "!佑釉": "https://abr.ge/tnu3jz",
+  "!修‧修果": "https://abr.ge/keljmm",
+  "!甯檸": "https://abr.ge/qdvzhc",
+  "!Hugh‧Hugo": "https://abr.ge/h33lux",
+  "!黛玳": "https://abr.ge/8geuh8",
+  "!尹隱": "https://abr.ge/lr1vls",
+  "!雙爹": "https://abr.ge/uein3u",
+  "!大二檸": "https://abr.ge/wcssf8",
+  "!嶽昀": "https://abr.ge/4v183r",
+  "!烏鴉宅": "https://abr.ge/346v3i",
 };
 
 console.log('✅ 正在嘗試登入 Discord...');
