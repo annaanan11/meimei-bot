@@ -106,7 +106,12 @@ if (passwordMap[userInput]) {
   userUsageLog[userId].push(userInput);
 
   try {
-    await message.author.send(`🔐 ${characterName}的密碼是：\`${password}\``);
+    const link = characterLinks[userInput];
+    let msg = `🔐 ${characterName}的密碼是：\`${password}\``;
+    if(link){
+      msg += `\n🔗 [點我前往角色頁面](${link})`;
+    }
+    await message.author.send({ content: msg });
     await message.reply('✅ 操，小蝴蝶，看私訊。');
   } catch (err) {
     console.error('❌ 私訊失敗：', err);
