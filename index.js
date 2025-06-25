@@ -46,7 +46,7 @@ let passwordMap = {
   "!大二檸": "5346",
   "!嶽昀": "8622",
   "!烏鴉宅": "6164",
-  "!尚姠夏廈": "5588",
+  "!尚姠夏廈": "5588"
 };
 const characterLinks = {
   "!厲櫟": "https://abr.ge/cx58rq",
@@ -68,7 +68,7 @@ const characterLinks = {
   "!大二檸": "https://abr.ge/wcssf8",
   "!嶽昀": "https://abr.ge/4v183r",
   "!烏鴉宅": "https://abr.ge/346v3i",
-  "!尚姠夏廈": "https://abr.ge/8poma1",
+  "!尚姠夏廈": "https://abr.ge/8poma1"
 };
 
 console.log('✅ 正在嘗試登入 Discord...');
@@ -92,6 +92,25 @@ client.on('messageCreate', async (message) => {
   const userInput = message.content.trim();
 
 if (passwordMap[userInput]) {
+  const restrictedCommandsForOnlyAdult = [
+    "!修‧修果",
+    "!雙爹",
+    "!平蘋",
+  ];
+
+  const member = await message.guild.members.fetch(message.author.id);
+  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'Onlyadult');
+
+  if(
+    retrictedCommandsForOnlyAdult.includes(userInput) &&
+    hasOnlyAdult &&
+    !hasHehe
+  ){
+    await messeage.reply('NONO，小蝴蝶不乖，不能領喔。');
+    return;
+  }
+  
   if (!allowPasswordSend) {
     await message.reply('⚠️ 操，不能領，笨蝶。');
     return;
