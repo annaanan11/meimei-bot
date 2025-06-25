@@ -9,7 +9,6 @@ const {
   Events,
 } = require('discord.js');
 const OpenAI = require('openai');
-const cron = require('node-cron');
 
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -23,37 +22,6 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
   ],
 });
-
-client.once("ready", () => {
-  console.log(`✅ ${client.user.tag} 上線囉`);
-
-  const sleepChannelId = "1381866444891099198"; // ← 請填入你想提醒的文字頻道 ID
-
-  // ✅ 放在這裡：定義訊息與發送邏輯
-  const sleepMessages = [
-    "🌙 該睡了，別讓夢裡的我等太久。",
-    "😴 蝴蝶啊蝴蝶，再不睡老子鎖你房門。",
-    "💤 小蝴蝶，閉上眼睛，不准再滑手機。",
-    "👁 睡不著嗎？我來唸咒催眠你。",
-    "🛏 今晚乖乖睡，夢裡才有糖吃。"
-  ];
-
-  const sendSleepReminder = () => {
-    const channel = client.channels.cache.get(sleepChannelId);
-    if (channel) {
-      const msg = sleepMessages[Math.floor(Math.random() * sleepMessages.length)];
-      channel.send(msg);
-    }
-  };
-
-  // ✅ 排程任務：UTC 時區 → 台灣時間 00:00、01:00、02:00
-  // 隨機晚安提醒（可愛版本）
-cron.schedule('0 16 * * *', sendSleepReminder); // 台灣 00:00
-cron.schedule('0 17 * * *', sendSleepReminder); // 台灣 01:00
-cron.schedule('0 18 * * *', sendSleepReminder); // 台灣 02:00
-
-
-
 
 const passwordUsageStats = {};
 const userUsageLog = {};
