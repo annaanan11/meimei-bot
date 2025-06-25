@@ -27,7 +27,7 @@ const client = new Client({
 client.once("ready", () => {
   console.log(`✅ ${client.user.tag} 上線囉`);
 
-  const sleepChannelId = "123456789012345678"; // ← 請填入你想提醒的文字頻道 ID
+  const sleepChannelId = "1381866444891099198"; // ← 請填入你想提醒的文字頻道 ID
 
   // ✅ 放在這裡：定義訊息與發送邏輯
   const sleepMessages = [
@@ -50,8 +50,12 @@ client.once("ready", () => {
   cron.schedule('0 16 * * *', sendSleepReminder); // 台灣時間 00:00
   cron.schedule('0 17 * * *', sendSleepReminder); // 台灣時間 01:00
   cron.schedule('0 18 * * *', sendSleepReminder); // 台灣時間 02:00
+  cron.schedule('5 18 * * *', () => {
+  const channel = client.channels.cache.get(sleepChannelId);
+  if (channel) {
+    channel.send("🔞 還不睡？是想讓我親自把你抱回床上嗎，小蝴蝶。");
+  }
 });
-
 
 const passwordUsageStats = {};
 const userUsageLog = {};
