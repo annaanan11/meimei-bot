@@ -146,7 +146,7 @@ const passwordAccessRules = {
   "!大二檸": "all",
   "!嶽昀": "all",
   "!烏鴉宅": "hehe",
-  "!尚姠夏廈": "all"
+  "!尚姠夏廈": "all",
   "!娜娜":"hehe"
 };
 
