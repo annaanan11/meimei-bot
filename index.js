@@ -24,7 +24,6 @@ const client = new Client({
 });
 
 const passwordUsageStats = {};
-const isAdmin = message.member.roles.cache.some(role => role.name === 'hehe');
 const userUsageLog = {};
 let allowPasswordSend = true;
 let passwordMap = {
