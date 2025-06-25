@@ -48,7 +48,6 @@ let passwordMap = {
   "!嶽昀": "8622",
 };
 
-const passwordUsageStats = {};
 const isAdmin = message.member.roles.cache.some(role => role.name === 'Onlyadult');
 const userUsageLog = {};
 let allowPasswordSend = true;
