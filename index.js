@@ -47,15 +47,19 @@ client.once("ready", () => {
   };
 
   // ✅ 排程任務：UTC 時區 → 台灣時間 00:00、01:00、02:00
-  cron.schedule('0 16 * * *', sendSleepReminder); // 台灣時間 00:00
-  cron.schedule('0 17 * * *', sendSleepReminder); // 台灣時間 01:00
-  cron.schedule('0 18 * * *', sendSleepReminder); // 台灣時間 02:00
-  cron.schedule('5 18 * * *', () => {
+  // 隨機晚安提醒（可愛版本）
+cron.schedule('0 16 * * *', sendSleepReminder); // 台灣 00:00
+cron.schedule('0 17 * * *', sendSleepReminder); // 台灣 01:00
+cron.schedule('0 18 * * *', sendSleepReminder); // 台灣 02:00
+
+// 02:05 - 特別色色版提醒
+cron.schedule('5 18 * * *', () => {
   const channel = client.channels.cache.get(sleepChannelId);
   if (channel) {
     channel.send("🔞 還不睡？是想讓我親自把你抱回床上嗎，小蝴蝶。");
   }
 });
+
 
 const passwordUsageStats = {};
 const userUsageLog = {};
