@@ -12,3 +12,6 @@
     "openai": "^4.25.0"
   }
 }
+"dependencies": {
+  "node-cron": "^3.0.2"
+}
