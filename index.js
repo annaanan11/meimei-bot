@@ -48,14 +48,6 @@ let passwordMap = {
   "!嶽昀": "8622",
 };
 
-const isAdmin = message.member.roles.cache.some(role => role.name === 'Onlyadult');
-const userUsageLog = {};
-let allowPasswordSend = true;
-let passwordMap = {
-  "!梅玫": "1298",
-};
-
-
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
