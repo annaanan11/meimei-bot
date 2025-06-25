@@ -113,6 +113,7 @@ const passwordAccessRules = {
   "!嶽昀": "all",
   "!烏鴉宅": "hehe",
   "!尚姠夏廈": "all"
+  "!娜娜":"hehe"
 };
 
 if (passwordMap[userInput]) {
