@@ -263,7 +263,7 @@ if (userInput === '!停止發放') {
 
 
   
-  // ✅ 身分組
+  // ✅ 身分組娜娜子
   if (userInput === '!領角色') {
     await message.channel.send({
       content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
@@ -336,11 +336,12 @@ if (userInput === '!停止發放') {
     }
     return;
   }
+  
+    // ✅ 娜個
     if (userInput === '!阿梅發角色') {
   await message.channel.send({
     content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
   });
-
   const roleGroups = [
       {
         title: "🌸 春綺樓",
@@ -388,25 +389,26 @@ if (userInput === '!停止發放') {
     ];
 
   for (const group of roleGroups) {
-    const embed = new EmbedBuilder()
-      .setTitle(group.title)
-      .setColor(0xff99cc);
+      const embed = new EmbedBuilder()
+        .setTitle(group.title)
+        .setColor(0xff99cc);
 
-    const rows = [];
-    for (let i = 0; i < group.roles.length; i += 5) {
-      const rowButtons = group.roles.slice(i, i + 5).map((name) =>
-        new ButtonBuilder()
-          .setCustomId(`role_${name}`)
-          .setLabel(name)
-          .setStyle(ButtonStyle.Secondary)
-      );
-      rows.push(new ActionRowBuilder().addComponents(...rowButtons));
+      const rows = [];
+      for (let i = 0; i < group.roles.length; i += 5) {
+        const rowButtons = group.roles.slice(i, i + 5).map(([name, emoji]) =>
+          new ButtonBuilder()
+            .setCustomId(`role_${name}`)
+            .setLabel(name)
+            .setEmoji({ name: emoji.name, id: emoji.id })
+            .setStyle(ButtonStyle.Secondary)
+        );
+        rows.push(new ActionRowBuilder().addComponents(...rowButtons));
+      }
+
+      await message.channel.send({ embeds: [embed], components: rows });
     }
-
-    await message.channel.send({ embeds: [embed], components: rows });
+    return;
   }
-  return;
-}
   //結婚
   if (userInput === '!結婚') {
   await message.channel.send({
