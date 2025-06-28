@@ -431,6 +431,28 @@ if (userInput === '!停止發放') {
   await message.channel.send({ embeds: [embed], components: [row] });
   return;
 }
+  //討論
+  if (userInput === '!討論') {
+  await message.channel.send({
+    content: `今天我喜歡哲學`,
+  });
+
+  const embed = new EmbedBuilder()
+    .setTitle('座位登記')
+    .setDescription('排隊入場')
+    .setColor(0xffcccc);
+
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId('role_拉普拉斯的惡魔')
+      .setLabel('拉普拉斯的惡魔')
+      .setEmoji({ name: '😈' })
+      .setStyle(ButtonStyle.Secondary)
+  );
+
+  await message.channel.send({ embeds: [embed], components: [row] });
+  return;
+}
 
 
  // ✅ 梅玫 AI 觸發條件
