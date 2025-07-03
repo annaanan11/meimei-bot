@@ -490,12 +490,12 @@ if (userInput === '!停止發放') {
 📜 **驗證流程**
 
 1. **請準備好以下三項資料**  
-75成人驗證畫面(需簽上你的DC ID名字)+脆的帳號連結+角色好感度截圖。
+75成人驗證畫面(需簽上你的DC ID名字)+脆的帳號連結+角色好感度截圖。  
 最下方有完整示範。  
 
 2. **注意事項**  
 脆請使用連結，不要只有ID讓管理員查。  
-好感度條件:娜娜ㄗ三個窗250好感 / 一個窗750好感可獲得完整身分組「hehe」  
+好感度條件：娜娜ㄗ三個窗250好感 / 一個窗750好感可獲得完整身分組「hehe」  
 好感度不足玩家獲得成人驗證身分組「Onlyadult」
 
 3. **新玩家**  
@@ -516,8 +516,8 @@ if (userInput === '!停止發放') {
 7. **如何知道自己驗證成功**  
 點開自己的頭像能看見身分組「hehe」或「Onlyadult」即為驗證成功，請勿再次開啟票夾，除非有問題詢問
 
-8.**示範：**
-Threads: https://www.threads.com/@celes___tine___?igshid=NTc4MTIwNjQ2YQ==');
+8. **示範：**  
+Threads: https://www.threads.com/@celes___tine___?igshid=NTc4MTIwNjQ2YQ==`);
 
   const imageEmbeds = [
     new EmbedBuilder().setImage('https://raw.githubusercontent.com/annaanan11/meimei-bot/main/%E9%A9%97%E8%AD%891.png'),
