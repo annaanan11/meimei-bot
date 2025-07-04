@@ -31,6 +31,7 @@ let passwordMap = {
   "!梅玫": "1298",
   "!春綺樓": "3697",
   "!白貂": "2997",
+  "!狼蛛": "2997",
   "!沙姆沙馬宮": "5649",
   "!繡骨臺": "8267",
   "!平蘋": "6125",
@@ -39,6 +40,7 @@ let passwordMap = {
   "!佑釉": "4563",
   "!甯檸": "5668",
   "!Hugh‧Hugo": "2387",
+  "!修修果": "4472",
   "!黛玳": "3684",
   "!尹隱": "5641",
   "!雙爹": "6463",
@@ -53,6 +55,7 @@ const characterLinks = {
   "!梅玫": "https://abr.ge/2it4kj",
   "!春綺樓": "https://abr.ge/wl6xfg",
   "!白貂": "https://abr.ge/qlbwbg",
+  "!狼蛛": "https://abr.ge/d1enak",
   "!沙姆沙馬宮": "https://abr.ge/jyk6tg",
   "!繡骨臺": "https://abr.ge/wn6jw6",
   "!平蘋": "https://abr.ge/jusko0",
@@ -61,6 +64,7 @@ const characterLinks = {
   "!佑釉": "https://abr.ge/tnu3jz",
   "!甯檸": "https://abr.ge/qdvzhc",
   "!Hugh‧Hugo": "https://abr.ge/h33lux",
+  "!修修果": "https://abr.ge/keljmm",
   "!黛玳": "https://abr.ge/8geuh8",
   "!尹隱": "https://abr.ge/lr1vls",
   "!雙爹": "https://abr.ge/uein3u",
@@ -121,14 +125,16 @@ const passwordAccessRules = {
   "!梅玫": "all",
   "!春綺樓": "all",
   "!白貂": "all",
+  "!狼蛛": "all",
   "!沙姆沙馬宮": "all",
   "!繡骨臺": "all",
-  "!平蘋": "hehe",
-  "!安萻": "all",
+  "!平蘋": "none",
+  "!安萻": "none",
   "!佐左": "all",
   "!佑釉": "all",
-  "!甯檸": "hehe",
-  "!Hugh‧Hugo": "hehe",
+  "!甯檸": "all",
+  "!Hugh‧Hugo": "none",
+  "!修修果": "none",
   "!黛玳": "all",
   "!尹隱": "hehe",
   "!雙爹": "hehe",
@@ -148,11 +154,11 @@ if (passwordMap[userInput]) {
   const accessLevel = passwordAccessRules[userInput];
 
   if (accessLevel === "hehe" && !hasHehe) {
-    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶不夠格。");
+    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;
   }
-  if (accessLevel === "admin" && !isAdmin) {
-    await message.reply("🚫 這是管理員限定角色，小蝴蝶別調皮。");
+  if (accessLevel === "none" && !isAdmin) {
+    await message.reply("🚫 請開票夾詢問。");
     return;
   }
 
