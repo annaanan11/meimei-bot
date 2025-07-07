@@ -145,6 +145,42 @@ const passwordAccessRules = {
   "!娜娜":"hehe"
 };
 
+  //嫣懨
+  if(useInput === '!嫣懨'){
+     const member = await message.guild.members.fetch(message.author.id);
+  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
+  const isAdmin = member.permissions.has('Administrator');
+
+  if(accessLevel === "hehe"){
+    const rulesEmbed = new EmbedBuilder()
+     .setColor(0080FF)
+     .setTitle("嫣懨領取角色注意事項")
+     .setDescription(`密碼：6228
+     角色網頁：https://abr.ge/ew63bq
+     以下為遊玩及觀看嫣懨事件的注意事項:
+     1. **全面禁止兒色，請玩家依照事件年齡設定，勿以未成年PC遊玩。**
+     2. **嫣懨事件中的情感皆是對自身情緒波動的感覺，並非對PC產生男女之情的衝動。**
+     3. **嫣懨對PC的睡姦是從PC十八歲開始，在此之前嫣懨對PC毫無興趣且未有過分的肢體接觸。**
+     4. **若理解所有內容，請回復此梅玫視窗「我閱讀完且理解了，__」打出你的名字，並回傳新角色討論頻道的回傳討論串。**
+     5. **以下為我的後台設定，明確設定了嫣懨並未對未成年PC有任何接觸。**
+     6. **若遊玩內容出現問題，皆為AI產生，請手動更改或刪除。**
+     7. **此角色為伺服器限定角色，討論請在伺服器討論，請勿外流，感謝！**`);
+
+    const imageEmbeds = [
+      new EmbedBuilder().setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png')];
+    
+    //判斷身分組
+  if (accessLevel === "hehe" && !hasHehe) {
+    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
+    return;
+  }
+  if (accessLevel === "none" && !isAdmin) {
+    await message.reply("🚫 請開票夾詢問。");
+    return;
+  }
+
+  //身分組限制(hehe/onlyault)
 if (passwordMap[userInput]) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
@@ -162,13 +198,13 @@ if (passwordMap[userInput]) {
     return;
   }
 
-
-
+  //停止
   if (!allowPasswordSend) {
     await message.reply('⚠️ 操，不能領，笨蝶。');
     return;
   }
 
+  //成功發送
   const password = passwordMap[userInput];
   const characterName = userInput.slice(1);
 
@@ -191,7 +227,7 @@ if (passwordMap[userInput]) {
   }
   return;
 }
-
+  //開啟+停止
   if (userInput === '!開啟發放') {
       const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (!isAdmin) {
