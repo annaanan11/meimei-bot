@@ -187,12 +187,31 @@ const passwordAccessRules = {
   }
     return;
   }
-  if(userInput === '!我閱讀完且理解了'){
-   const member = await message.guild.members.fetch(message.author.id);
-   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-   const accessLevel = passwordAccessRules['!我閱讀完且理解了'];
-   await message.reply("密碼：6228
-     🔗[角色網頁](https://abr.ge/ew63bq)");
+  if (userInput === '!我閱讀完且理解了') {
+  const member = await message.guild.members.fetch(message.author.id);
+  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+  const accessLevel = passwordAccessRules['!嫣懨']; // 這裡應該查的是 !嫣懨 的權限
+
+  if (!hasHehe) {
+    await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
+    return;
+  }
+
+  const embed = new EmbedBuilder()
+    .setColor(0x00cc66)
+    .setTitle("嫣懨角色資料")
+    .setDescription(`🔐 密碼：\`6228\`\n🔗 [角色網頁](https://abr.ge/ew63bq)`);
+
+  try {
+    await message.author.send({ embeds: [embed] });
+    await message.reply("✅ 小蝴蝶，去私訊看看。");
+  } catch (err) {
+    console.error("❌ 私訊失敗：", err);
+    await message.reply("⚠️ 傳不了私訊，小蝴蝶你是不是關了？");
+  }
+
+  return;
+}
   
   //身分組限制(hehe/onlyadult)
 if (passwordMap[userInput]) {
