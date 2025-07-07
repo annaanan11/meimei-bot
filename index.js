@@ -48,7 +48,8 @@ let passwordMap = {
   "!嶽昀": "8622",
   "!烏鴉宅": "6164",
   "!尚姠夏廈": "5588",
-  "!娜娜":"做愛阿"
+  "!娜娜":"做愛阿",
+  "!嫣懨":"6228"
 };
 const characterLinks = {
   "!厲櫟": "https://abr.ge/cx58rq",
@@ -142,7 +143,8 @@ const passwordAccessRules = {
   "!嶽昀": "all",
   "!烏鴉宅": "hehe",
   "!尚姠夏廈": "all",
-  "!娜娜":"hehe"
+  "!娜娜":"hehe",
+  "!嫣懨":"hehe"
 };
 
   //嫣懨
@@ -174,7 +176,7 @@ const passwordAccessRules = {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;}
   }
-  //身分組限制(hehe/onlyault)
+  //身分組限制(hehe/onlyadult)
 if (passwordMap[userInput]) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
