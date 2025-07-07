@@ -154,7 +154,7 @@ const passwordAccessRules = {
 
   if(accessLevel === "hehe"){
     const rulesEmbed = new EmbedBuilder()
-     .setColor(0080FF)
+     .setColor(0xffcccc)
      .setTitle("嫣懨領取角色注意事項")
      .setDescription(`密碼：6228
      角色網頁：https://abr.ge/ew63bq
