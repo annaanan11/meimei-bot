@@ -80,9 +80,11 @@ client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
 });
 
+//關鍵字
 const userHistories = {};
-const triggerKeywords = ["梅玫", "打手槍", "好煩", "愛愛", "射了", "梅 玫", "那個男人", "我好了", "女人", "不可以", "閉嘴", "吵死","愛/愛","佳穎","桂頭"];
+const triggerKeywords = ["梅玫", "打手槍", "好煩", "射了", "梅 玫", "那個男人", "女人", "閉嘴", "吵死","愛/愛"];
 
+//離開伺服器
 client.on('guildMemberRemove', member => {
   const channelId = '1382903529114701874';
   const channel = member.guild.channels.cache.get(channelId);
