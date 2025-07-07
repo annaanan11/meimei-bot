@@ -160,11 +160,7 @@ const passwordAccessRules = {
     const embed = new EmbedBuilder()
      .setColor(0xffcccc)
      .setTitle("嫣懨領取角色注意事項")
-     .setDescription(`密碼：6228
-     
-     🔗[角色網頁](https://abr.ge/ew63bq)
-     
-     以下為遊玩及觀看嫣懨事件的注意事項:
+     .setDescription(`以下為遊玩及觀看嫣懨事件的注意事項:
      
      **1.** **全面禁止兒色，請玩家依照事件年齡設定，勿以未成年PC遊玩。**
      
@@ -172,7 +168,7 @@ const passwordAccessRules = {
      
      **3.** **嫣懨對PC的睡姦是從PC十八歲開始，在此之前嫣懨對PC毫無興趣且未有過分的肢體接觸。**
      
-     **4.** **若理解所有內容，請到🔗[討論串](https://discordapp.com/channels/1379833900045566082/1391845767940935760)回覆「我閱讀完且理解了，__」打出你的名字。**
+     **4.** **若理解所有內容，請到🔗[討論串](https://discordapp.com/channels/1379833900045566082/1391845767940935760)回覆「!我閱讀完且理解了」**
      
      **5.** **以下為我的後台設定，明確設定了嫣懨並未對未成年PC有任何接觸。**
      
@@ -191,6 +187,13 @@ const passwordAccessRules = {
   }
     return;
   }
+  if(userInput === '!我閱讀完且理解了'){
+   const member = await message.guild.members.fetch(message.author.id);
+   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+   const accessLevel = passwordAccessRules['!我閱讀完且理解了'];
+   await message.reply("密碼：6228
+     🔗[角色網頁](https://abr.ge/ew63bq)");
+  
   //身分組限制(hehe/onlyadult)
 if (passwordMap[userInput]) {
   const member = await message.guild.members.fetch(message.author.id);
