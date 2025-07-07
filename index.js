@@ -148,7 +148,7 @@ const passwordAccessRules = {
 };
 
   //嫣懨
-  if(useInput === '!嫣懨'){
+  if(userInput === '!嫣懨'){
    const member = await message.guild.members.fetch(message.author.id);
    const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
    const accessLevel = passwordAccessRules['!嫣懨'];
@@ -174,7 +174,7 @@ const passwordAccessRules = {
     const imageEmbeds = new EmbedBuilder()
       .setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png');
     try{
-      await message.author.send({ embeds:[embed, imageEmbed]});
+      await message.author.send({ embeds:[embed, imageEmbeds]});
       await message.reply('🖤操，小蝴蝶，私你了。');
     }catch(err){
       console.error('失敗了:',err);
