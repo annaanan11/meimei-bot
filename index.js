@@ -168,9 +168,8 @@ const passwordAccessRules = {
      7. **此角色為伺服器限定角色，討論請在伺服器討論，請勿外流，感謝！**`);
 
     const imageEmbeds = [
-      new EmbedBuilder().setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png')];
+      new EmbedBuilder().setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png')];}
     
-    //判斷身分組
   if (accessLevel === "hehe" && !hasHehe) {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;
