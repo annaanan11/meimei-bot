@@ -172,7 +172,7 @@ const passwordAccessRules = {
      7. **此角色為伺服器限定角色，討論請在伺服器討論，請勿外流，感謝！**`);
 
     const imageEmbeds = new EmbedBuilder()
-      .setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png');
+      .setImage('懨.png');
     try{
       await message.author.send({ embeds:[embed, imageEmbeds]});
       await message.reply('🖤操，小蝴蝶，私你了。');
