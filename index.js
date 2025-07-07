@@ -149,17 +149,19 @@ const passwordAccessRules = {
 
   //嫣懨
   if(useInput === '!嫣懨'){
-     const member = await message.guild.members.fetch(message.author.id);
-  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-  const isAdmin = member.permissions.has('Administrator');
+   const member = await message.guild.members.fetch(message.author.id);
+   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+   const accessLevel = passwordAccessRules['!嫣懨'];
 
-  if(accessLevel === "hehe"){
-    const rulesEmbed = new EmbedBuilder()
+  if(accessLevel === "hehe" && !hasHehe){
+    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
+    return;
+  }
+    const embed = new EmbedBuilder()
      .setColor(0xffcccc)
      .setTitle("嫣懨領取角色注意事項")
      .setDescription(`密碼：6228
-     角色網頁：https://abr.ge/ew63bq
+     🔗[角色網頁](https://abr.ge/ew63bq)
      以下為遊玩及觀看嫣懨事件的注意事項:
      1. **全面禁止兒色，請玩家依照事件年齡設定，勿以未成年PC遊玩。**
      2. **嫣懨事件中的情感皆是對自身情緒波動的感覺，並非對PC產生男女之情的衝動。**
@@ -169,12 +171,16 @@ const passwordAccessRules = {
      6. **若遊玩內容出現問題，皆為AI產生，請手動更改或刪除。**
      7. **此角色為伺服器限定角色，討論請在伺服器討論，請勿外流，感謝！**`);
 
-    const imageEmbeds = [
-      new EmbedBuilder().setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png')];}
-    
-  if (accessLevel === !hasHehe) {
-    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
-    return;}
+    const imageEmbeds = new EmbedBuilder()
+      .setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png');
+    try{
+      await message.author.send({ embeds:[embed, imageEmbed]});
+      await message.reply('🖤操，小蝴蝶，私你了。');
+    }catch(err){
+      console.error('失敗了:',err);
+      await message.reply('小蝴蝶，不能私你，煩死了。');
+  }
+    return;
   }
   //身分組限制(hehe/onlyadult)
 if (passwordMap[userInput]) {
