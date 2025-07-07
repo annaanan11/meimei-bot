@@ -170,15 +170,10 @@ const passwordAccessRules = {
     const imageEmbeds = [
       new EmbedBuilder().setImage('https://github.com/annaanan11/meimei-bot/blob/main/%E6%87%A8.png')];}
     
-  if (accessLevel === "hehe" && !hasHehe) {
+  if (accessLevel === !hasHehe) {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
-    return;
+    return;}
   }
-  if (accessLevel === "none" && !isAdmin) {
-    await message.reply("🚫 請開票夾詢問。");
-    return;
-  }
-
   //身分組限制(hehe/onlyault)
 if (passwordMap[userInput]) {
   const member = await message.guild.members.fetch(message.author.id);
