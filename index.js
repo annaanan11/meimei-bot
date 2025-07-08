@@ -235,10 +235,10 @@ if (passwordMap[userInput]) {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;
   } else if (hasHehe) {
-    await message.reply("⚠️ 小蝴蝶，這個角色需要開票夾審核，請乖乖去開。");
+    await message.reply("⚠️ 小蝴蝶，這個角色需要開票夾，請乖乖去開。");
     return;
   } else {
-    await message.reply("🚫 小蝴蝶，你不能領這個角色，去開票夾。");
+    await message.reply("🚫 小蝴蝶，你不能領這個角色。");
     return;
   }
 }
