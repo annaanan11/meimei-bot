@@ -228,10 +228,21 @@ if (passwordMap[userInput]) {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;
   }
-  if (accessLevel === "none" && !isAdmin) {
-    await message.reply("🚫 請開票夾詢問。");
+  if (accessLevel === "none") {
+  if (isAdmin) {
+    // 管理員可領取，不阻擋
+  } else if (hasOnlyAdult) {
+    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
+    return;
+  } else if (hasHehe) {
+    await message.reply("⚠️ 小蝴蝶，這個角色需要開票夾審核，請乖乖去開。");
+    return;
+  } else {
+    await message.reply("🚫 小蝴蝶，你不能領這個角色，去開票夾。");
     return;
   }
+}
+
 
   //停止
   if (!allowPasswordSend) {
