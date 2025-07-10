@@ -159,6 +159,11 @@ const passwordAccessRules = {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;
   }
+    if (!allowPasswordSend) {
+    await message.reply("⚠️ 操，不能領，笨蝶。");
+    return;
+  }
+
     const embed = new EmbedBuilder()
      .setColor(0xffcccc)
      .setTitle("嫣懨領取角色注意事項")
