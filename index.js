@@ -198,6 +198,12 @@ const passwordAccessRules = {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
   const accessLevel = passwordAccessRules['!嫣懨']; // 這裡應該查的是 !嫣懨 的權限
+    
+    if (!allowPasswordSend) {
+    await message.reply("⚠️ 操，小蝴蝶不能偷領密碼，給我等等。");
+    return;
+  }
+
 
   if (!hasHehe) {
     await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
