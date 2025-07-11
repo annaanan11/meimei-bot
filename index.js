@@ -151,15 +151,6 @@ const passwordAccessRules = {
 
   //嫣懨
   if(userInput === '!嫣懨'){
-   const member = await message.guild.members.fetch(message.author.id);
-   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-
-if (!hasHehe && !hasOnlyAdult) {
-  await message.reply("🚫 小蝴蝶，你還沒驗證，不能看嫣懨。");
-  return;
-}
-
     if (!allowPasswordSend) {
     await message.reply("⚠️ 操，不能領，笨蝶。");
     return;
@@ -196,10 +187,6 @@ if (!hasHehe && !hasOnlyAdult) {
     return;
   }
   if (userInput === '!我閱讀完且理解了') {
-  const member = await message.guild.members.fetch(message.author.id);
-  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-
   if (!hasHehe && !hasOnlyAdult) {
     await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
     return;
