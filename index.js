@@ -22,7 +22,38 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
   ],
 });
-  //passwordmap
+ 
+ //權限設定
+client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  const userInput = message.content.trim();
+const passwordAccessRules = {
+  "!厲櫟": "all",
+  "!梅玫": "all",
+  "!春綺樓": "all",
+  "!白貂": "all",
+  "!狼蛛": "all",
+  "!沙姆沙馬宮": "all",
+  "!繡骨臺": "all",
+  "!平蘋": "none",
+  "!安萻": "none",
+  "!佐左": "all",
+  "!佑釉": "all",
+  "!甯檸": "all",
+  "!Hugh‧Hugo": "none",
+  "!修修果": "none",
+  "!黛玳": "all",
+  "!尹隱": "hehe",
+  "!雙爹": "hehe",
+  "!大二檸": "all",
+  "!嶽昀": "all",
+  "!烏鴉宅": "hehe",
+  "!尚姠夏廈": "all",
+  "!娜娜":"hehe",
+  "!嫣懨":"all"
+};
+
+   //passwordmap
 const passwordUsageStats = {};
 const userUsageLog = {};
 let allowPasswordSend = true;
@@ -74,36 +105,6 @@ const characterLinks = {
   "!烏鴉宅": "https://abr.ge/346v3i",
   "!尚姠夏廈": "https://abr.ge/8poma1"
 };
- //權限設定
-client.on('messageCreate', async (message) => {
-  if (message.author.bot) return;
-  const userInput = message.content.trim();
-const passwordAccessRules = {
-  "!厲櫟": "all",
-  "!梅玫": "all",
-  "!春綺樓": "all",
-  "!白貂": "all",
-  "!狼蛛": "all",
-  "!沙姆沙馬宮": "all",
-  "!繡骨臺": "all",
-  "!平蘋": "none",
-  "!安萻": "none",
-  "!佐左": "all",
-  "!佑釉": "all",
-  "!甯檸": "all",
-  "!Hugh‧Hugo": "none",
-  "!修修果": "none",
-  "!黛玳": "all",
-  "!尹隱": "hehe",
-  "!雙爹": "hehe",
-  "!大二檸": "all",
-  "!嶽昀": "all",
-  "!烏鴉宅": "hehe",
-  "!尚姠夏廈": "all",
-  "!娜娜":"hehe",
-  "!嫣懨":"all"
-};
-
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
