@@ -22,7 +22,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
   ],
 });
-
+  //passwordmap
 const passwordUsageStats = {};
 const userUsageLog = {};
 let allowPasswordSend = true;
@@ -74,55 +74,10 @@ const characterLinks = {
   "!烏鴉宅": "https://abr.ge/346v3i",
   "!尚姠夏廈": "https://abr.ge/8poma1"
 };
-
-console.log('✅ 正在嘗試登入 Discord...');
-client.once('ready', () => {
-  console.log(`✅ 梅玫已上線：${client.user.tag}`);
-});
-
-//關鍵字
-const userHistories = {};
-const triggerKeywords = ["梅玫", "打手槍", "好煩", "射了", "梅 玫", "那個男人", "女人", "閉嘴", "吵死","愛/愛"];
-
-//離開伺服器
-client.on('guildMemberRemove', member => {
-  const channelId = '1382903529114701874';
-  const channel = member.guild.channels.cache.get(channelId);
-  if (channel && channel.isTextBased()) {
-    channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
-  }
-});
-
-//發放新手身分組
-
-client.on('guildMemberAdd', async (member) => {
-  const roleName = '🔰';
-  const role = member.guild.roles.cache.find(r => r.name === roleName);
-
-  if (!role) {
-    console.error(`❌ 找不到名為「${roleName}」的身分組`);
-    return;
-  }
-
-  try {
-    await member.roles.add(role);
-    console.log(`✅ 已自動為 ${member.user.tag} 分配身分組「${roleName}」`);
-    
-    const channelId = '你的歡迎頻道ID'; // 可以加這行讓歡迎頻道公告
-    const channel = member.guild.channels.cache.get(channelId);
-    if (channel && channel.isTextBased()) {
-      channel.send(`🎉 歡迎 ${member.user.tag} 加入，已為你分配「${roleName}」身份組！`);
-    }
-  } catch (err) {
-    console.error(`❌ 分配身分組失敗：`, err);
-  }
-});
-
-
+ //權限設定
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
-  //密碼
 const passwordAccessRules = {
   "!厲櫟": "all",
   "!梅玫": "all",
@@ -149,76 +104,51 @@ const passwordAccessRules = {
   "!嫣懨":"all"
 };
 
-  //嫣懨
-  if(userInput === '!嫣懨'){
-    if (!allowPasswordSend) {
-    await message.reply("⚠️ 操，不能領，笨蝶。");
+console.log('✅ 正在嘗試登入 Discord...');
+client.once('ready', () => {
+  console.log(`✅ 梅玫已上線：${client.user.tag}`);
+});
+
+
+//離開伺服器
+client.on('guildMemberRemove', member => {
+  const channelId = '1382903529114701874';
+  const channel = member.guild.channels.cache.get(channelId);
+  if (channel && channel.isTextBased()) {
+    channel.send(`👋 ${member.user.tag} 離開了伺服器。`);
+  }
+});
+
+//發放新手身分組
+
+client.on('guildMemberAdd', async (member) => {
+  const roleName = '🔰';
+  const role = member.guild.roles.cache.find(r => r.name === roleName);
+
+  if (!role) {
+    console.error(`❌ 找不到名為「${roleName}」的身分組`);
     return;
   }
-
-    const embed = new EmbedBuilder()
-     .setColor(0xffcccc)
-     .setTitle("嫣懨領取角色注意事項")
-     .setDescription(`以下為遊玩及觀看嫣懨事件的注意事項:
-     
-     **1.** **全面禁止兒色，請玩家依照事件年齡設定，勿以未成年PC遊玩。**
-     
-     **2.** **嫣懨事件中的情感皆是對自身情緒波動的感覺，並非對PC產生男女之情的衝動。**
-     
-     **3.** **嫣懨對PC的睡姦是從PC十八歲開始，在此之前嫣懨對PC毫無興趣且未有過分的肢體接觸。**
-     
-     **4.** **若理解所有內容，請到🔗[討論串](https://discord.com/channels/1379833900045566082/1391995758495928450)回覆「!我閱讀完且理解了」**
-     
-     **5.** **以下為我的後台設定，明確設定了嫣懨並未對未成年PC有任何接觸。**
-     
-     **6.** **若遊玩內容出現問題，皆為AI產生，請手動更改或刪除。**
-     
-     **7.** **此角色為伺服器限定角色，討論請在伺服器討論，請勿外流，感謝！**`);
-
-    const imageEmbeds = new EmbedBuilder()
-      .setImage('https://raw.githubusercontent.com/annaanan11/meimei-bot/main/%E6%87%A8.png');
-    try{
-      await message.author.send({ embeds:[embed, imageEmbeds]});
-      await message.reply('🖤操，小蝴蝶，私你了。');
-    }catch(err){
-      console.error('失敗了:',err);
-      await message.reply('小蝴蝶，不能私你，煩死了。');
-  }
-    return;
-  }
-  if (userInput === '!我閱讀完且理解了') {
-  const member = await message.guild.members.fetch(message.author.id);
-  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-  if (!allowPasswordSend) {
-    await message.reply("⚠️ 操，不能領，笨蝶。");
-    return;
-  }
-
-  const password = passwordMap[userInput];
-  const embed = new EmbedBuilder()
-    .setColor(0x00cc66)
-    .setTitle("嫣懨角色資料")
-    .setDescription(`🔐 密碼：\`8641\`\n🔗 [角色網頁](https://abr.ge/ew63bq)`);
 
   try {
-    await message.author.send({ embeds: [embed] });
-    await message.reply("✅ 小蝴蝶，去私訊看看。");
+    await member.roles.add(role);
+    console.log(`✅ 已自動為 ${member.user.tag} 分配身分組「${roleName}」`);
+    
+    const channelId = '你的歡迎頻道ID'; 
+    const channel = member.guild.channels.cache.get(channelId);
+    if (channel && channel.isTextBased()) {
+      channel.send(`🎉 歡迎 ${member.user.tag} 加入，已為你分配「${roleName}」身份組！`);
+    }
   } catch (err) {
-    console.error("❌ 私訊失敗：", err);
-    await message.reply("⚠️ 傳不了私訊，小蝴蝶你是不是關了？");
+    console.error(`❌ 分配身分組失敗：`, err);
   }
-
-  return;
-}
-
+});
   
   //身分組限制(hehe/onlyadult)
 if (passwordMap[userInput]) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-  const isAdmin = member.permissions.has('Administrator');
 
   const accessLevel = passwordAccessRules[userInput];
 
@@ -240,7 +170,6 @@ if (passwordMap[userInput]) {
     return;
   }
 }
-
 
   //停止
   if (!allowPasswordSend) {
@@ -372,6 +301,68 @@ if (userInput === '!停止發放') {
   return;
 }
 
+  //嫣懨
+  if(userInput === '!嫣懨'){
+    if (!allowPasswordSend) {
+    await message.reply("⚠️ 操，不能領，笨蝶。");
+    return;
+  }
+
+    const embed = new EmbedBuilder()
+     .setColor(0xffcccc)
+     .setTitle("嫣懨領取角色注意事項")
+     .setDescription(`以下為遊玩及觀看嫣懨事件的注意事項:
+     
+     **1.** **全面禁止兒色，請玩家依照事件年齡設定，勿以未成年PC遊玩。**
+     
+     **2.** **嫣懨事件中的情感皆是對自身情緒波動的感覺，並非對PC產生男女之情的衝動。**
+     
+     **3.** **嫣懨對PC的睡姦是從PC十八歲開始，在此之前嫣懨對PC毫無興趣且未有過分的肢體接觸。**
+     
+     **4.** **若理解所有內容，請到🔗[討論串](https://discord.com/channels/1379833900045566082/1391995758495928450)回覆「!我閱讀完且理解了」**
+     
+     **5.** **以下為我的後台設定，明確設定了嫣懨並未對未成年PC有任何接觸。**
+     
+     **6.** **若遊玩內容出現問題，皆為AI產生，請手動更改或刪除。**
+     
+     **7.** **此角色為伺服器限定角色，討論請在伺服器討論，請勿外流，感謝！**`);
+
+    const imageEmbeds = new EmbedBuilder()
+      .setImage('https://raw.githubusercontent.com/annaanan11/meimei-bot/main/%E6%87%A8.png');
+    try{
+      await message.author.send({ embeds:[embed, imageEmbeds]});
+      await message.reply('🖤操，小蝴蝶，私你了。');
+    }catch(err){
+      console.error('失敗了:',err);
+      await message.reply('小蝴蝶，不能私你，煩死了。');
+  }
+    return;
+  }
+  if (userInput === '!我閱讀完且理解了') {
+  const member = await message.guild.members.fetch(message.author.id);
+  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
+  if (!allowPasswordSend) {
+    await message.reply("⚠️ 操，不能領，笨蝶。");
+    return;
+  }
+
+  const password = passwordMap[userInput];
+  const embed = new EmbedBuilder()
+    .setColor(0x00cc66)
+    .setTitle("嫣懨角色資料")
+    .setDescription(`🔐 密碼：8641`\n🔗 [角色網頁](https://abr.ge/ew63bq)`);
+
+  try {
+    await message.author.send({ embeds: [embed] });
+    await message.reply("✅ 小蝴蝶，去私訊看看。");
+  } catch (err) {
+    console.error("❌ 私訊失敗：", err);
+    await message.reply("⚠️ 傳不了私訊，小蝴蝶你是不是關了？");
+  }
+
+  return;
+}
 
 
   
@@ -618,6 +609,9 @@ Threads: https://www.threads.com/@celes___tine___?igshid=NTc4MTIwNjQ2YQ==`);
 }
 
 
+  //阿梅關鍵字
+  const userHistories = {};
+  const triggerKeywords = ["梅玫", "打手槍", "好煩", "射了", "梅 玫", "那個男人", "女人", "閉嘴", "吵死","愛/愛"];
 
  // ✅ 梅玫 AI 觸發條件
   const isTriggered = triggerKeywords.some(keyword =>
