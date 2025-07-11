@@ -103,7 +103,8 @@ const characterLinks = {
   "!大二檸": "https://abr.ge/wcssf8",
   "!嶽昀": "https://abr.ge/4v183r",
   "!烏鴉宅": "https://abr.ge/346v3i",
-  "!尚姠夏廈": "https://abr.ge/8poma1"
+  "!尚姠夏廈": "https://abr.ge/8poma1",
+  "!嫣懨": "https://abr.ge/ew63bq",
 };
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
@@ -157,6 +158,7 @@ if (passwordMap[userInput]) {
     await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
     return;
   }
+  const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
   if (accessLevel === "none") {
   if (isAdmin) {
     // 管理員可領取，不阻擋
@@ -364,82 +366,6 @@ if (userInput === '!停止發放') {
 
   return;
 }
-
-
-  
-  // ✅ 身分組娜娜子
-  if (userInput === '!領角色') {
-    await message.channel.send({
-      content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
-    });
-
-    const roleGroups = [
-      {
-        title: "🌸 春綺樓",
-        roles: [
-          ["狼蛛的小寶貝", { name: "shy", id: "1375790878664298617" }],
-          ["白貂的苦命情人", { name: "smile", id: "1375791669802172466" }],
-          ["雙頭蛇的小狗狗", { name: "smug", id: "1375790888340422656" }]
-        ]
-      },
-      {
-        title: "🏜️ 沙瑪沙姆",
-        roles: [
-          ["律嵂的小妹妹", { name: "thumbsup", id: "1364894847194108014" }],
-          ["緋霏的小馬鈴薯", { name: "loading", id: "1375790865624338512" }],
-          ["丹䒟的小東西", { name: "scared", id: "1375790876525334589" }]
-        ]
-      },
-      {
-        title: "🩶 繡骨臺",
-        roles: [
-          ["平蘋的娘親", { name: "disgusted", id: "1375790847022334032" }],
-          ["安萻的小妻女", { name: "yawn", id: "1375790926932217856" }],
-          ["佐左的主人", { name: "headpat", id: "1375790853385228441" }],
-          ["佑釉的小霸王", { name: "peek", id: "1375790870053257266" }],
-          ["嶽昀的小娘子", { name: "hearteyes", id: "1376623463778746389" }]
-        ]
-      },
-      {
-        title: "🍷 混池",
-        roles: [
-          ["梅玫的小蝴蝶", { name: "laugh", id: "1375790863384580107" }],
-          ["厲櫟的小魅魔", { name: "surprised", id: "1375790897823748117" }],
-          ["雙爹的小女兒", { name: "FBI", id: "1376937556331073609" }],
-          ["甯檸的神經元", { name: "plead", id: "1375790871726919761" }],
-          ["黛玳的小便當", { name: "bulgingeyes", id: "1368984596942684283" }],
-          ["尹隱深井冰", { name: "dead", id: "1375790844296036362" }]
-        ]
-      },
-      {
-        title: "❤️‍🔥 我想...",
-        roles: [
-          ["世間情", { name: "blush3", id: "1376602372821745694" }],
-        ]
-      }
-    ];
-
-    for (const group of roleGroups) {
-      const embed = new EmbedBuilder()
-        .setTitle(group.title)
-        .setColor(0xff99cc);
-
-      const rows = [];
-      for (let i = 0; i < group.roles.length; i += 5) {
-        const rowButtons = group.roles.slice(i, i + 5).map(([name, emoji]) =>
-          new ButtonBuilder()
-            .setCustomId(`role_${name}`)
-            .setLabel(name)
-            .setEmoji({ name: emoji.name, id: emoji.id })
-            .setStyle(ButtonStyle.Secondary)
-        );
-        rows.push(new ActionRowBuilder().addComponents(...rowButtons));
-      }
-
-      await message.channel.send({ embeds: [embed], components: rows });
-    }
-    return;
-  }
   
     // ✅ 娜個
     if (userInput === '!阿梅發角色') {
