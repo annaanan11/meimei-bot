@@ -146,19 +146,20 @@ const passwordAccessRules = {
   "!烏鴉宅": "hehe",
   "!尚姠夏廈": "all",
   "!娜娜":"hehe",
-  "!嫣懨":"hehe"
+  "!嫣懨":"all"
 };
 
   //嫣懨
   if(userInput === '!嫣懨'){
    const member = await message.guild.members.fetch(message.author.id);
    const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-   const accessLevel = passwordAccessRules['!嫣懨'];
+   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
 
-  if(accessLevel === "hehe" && !hasHehe){
-    await message.reply("🚫 這個角色只有 hehe 可以領喔，小蝴蝶真調皮。");
-    return;
-  }
+if (!hasHehe && !hasOnlyAdult) {
+  await message.reply("🚫 小蝴蝶，你還沒驗證，不能看嫣懨。");
+  return;
+}
+
     if (!allowPasswordSend) {
     await message.reply("⚠️ 操，不能領，笨蝶。");
     return;
@@ -197,12 +198,12 @@ const passwordAccessRules = {
   if (userInput === '!我閱讀完且理解了') {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-  const accessLevel = passwordAccessRules['!嫣懨']; // 這裡應該查的是 !嫣懨 的權限
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
     
-    if (!allowPasswordSend) {
-    await message.reply("⚠️ 操，小蝴蝶不能偷領密碼，給我等等。");
-    return;
-  }
+    if (!hasHehe && !hasOnlyAdult) {
+  await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
+  return;
+}
 
 
   if (!hasHehe) {
