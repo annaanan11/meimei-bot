@@ -205,12 +205,6 @@ if (!hasHehe && !hasOnlyAdult) {
   return;
 }
 
-
-  if (!hasHehe) {
-    await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
-    return;
-  }
-
   const embed = new EmbedBuilder()
     .setColor(0x00cc66)
     .setTitle("嫣懨角色資料")
