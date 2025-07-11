@@ -80,8 +80,7 @@ let passwordMap = {
   "!嶽昀": "1964",
   "!烏鴉宅": "6164",
   "!尚姠夏廈": "5588",
-  "!娜娜":"做愛阿",
-  "!嫣懨":"8641"
+  "!娜娜":"做愛阿"
 };
 const characterLinks = {
   "!厲櫟": "https://abr.ge/cx58rq",
@@ -104,8 +103,7 @@ const characterLinks = {
   "!大二檸": "https://abr.ge/wcssf8",
   "!嶽昀": "https://abr.ge/4v183r",
   "!烏鴉宅": "https://abr.ge/346v3i",
-  "!尚姠夏廈": "https://abr.ge/8poma1",
-  "!嫣懨": "https://abr.ge/ew63bq",
+  "!尚姠夏廈": "https://abr.ge/8poma1"
 };
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
