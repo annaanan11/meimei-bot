@@ -187,10 +187,16 @@ const passwordAccessRules = {
     return;
   }
   if (userInput === '!我閱讀完且理解了') {
-  if (!hasHehe && !hasOnlyAdult) {
+  const member = await message.guild.members.fetch(message.author.id);
+  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
+  const isAdmin = member.permissions.has('Administrator');
+
+  if (!hasHehe && !hasOnlyAdult && !isAdmin) {
     await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
     return;
   }
+
 
   if (!allowPasswordSend) {
     await message.reply("⚠️ 操，不能領，笨蝶。");
