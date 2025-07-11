@@ -199,7 +199,7 @@ const passwordAccessRules = {
   const embed = new EmbedBuilder()
     .setColor(0x00cc66)
     .setTitle("嫣懨角色資料")
-    .setDescription(`🔐 密碼：\`8641\``\n🔗 [角色網頁](https://abr.ge/ew63bq)`);
+    .setDescription(`🔐 密碼：\`8641\`\n🔗 [角色網頁](https://abr.ge/ew63bq)`);
 
   try {
     await message.author.send({ embeds: [embed] });
