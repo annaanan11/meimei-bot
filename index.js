@@ -199,11 +199,16 @@ if (!hasHehe && !hasOnlyAdult) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-    
-    if (!hasHehe && !hasOnlyAdult) {
-  await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
-  return;
-}
+
+  if (!hasHehe && !hasOnlyAdult) {
+    await message.reply("🚫 小蝴蝶，還沒驗證過不能偷拿密碼。");
+    return;
+  }
+
+  if (!allowPasswordSend) {
+    await message.reply("⚠️ 操，不能領，笨蝶。");
+    return;
+  }
 
   const embed = new EmbedBuilder()
     .setColor(0x00cc66)
@@ -220,6 +225,7 @@ if (!hasHehe && !hasOnlyAdult) {
 
   return;
 }
+
   
   //身分組限制(hehe/onlyadult)
 if (passwordMap[userInput]) {
