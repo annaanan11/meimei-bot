@@ -1,4 +1,5 @@
 require('dotenv').config();
+const userHistories = {};
 const {
   Client,
   GatewayIntentBits,
@@ -535,9 +536,7 @@ Threads: https://www.threads.com/@celes___tine___?igshid=NTc4MTIwNjQ2YQ==`);
   return;
 }
 
-
   //阿梅關鍵字
-  const userHistories = {};
   const triggerKeywords = ["梅玫", "打手槍", "好煩", "射了", "梅 玫", "那個男人", "女人", "閉嘴", "吵死","愛/愛"];
 
  // ✅ 梅玫 AI 觸發條件
