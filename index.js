@@ -109,6 +109,11 @@ if (passwordMap[userInput]) {
     return;
   }
 }
+  const { handlePassword, passwordUsageStats, userUsageLog } = require('./modules/handlePassword');
+  if (passwordMap[userInput]) {
+  const name = userInput.slice(1);
+  return handlePassword(message, name, allowPasswordSend);
+}
 
   //開啟+停止
   if (userInput === '!開啟發放') {
