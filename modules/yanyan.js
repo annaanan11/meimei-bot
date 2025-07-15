@@ -41,10 +41,8 @@ async function handleYanyanConfirm(message, allowPasswordSend) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-  if (!hasHehe || !hasOnlyAdult) {
-    return message.reply("你沒有符合角色領取條件喔，小蝴蝶。");
-  }
-
+  if (hasHehe && !asOnlyAdult) {
+    
   const embed = new EmbedBuilder()
     .setColor(0x00cc66)
     .setTitle("嫣懨角色資料")
@@ -55,6 +53,7 @@ async function handleYanyanConfirm(message, allowPasswordSend) {
     await message.reply("✅ 小蝴蝶，去私訊看看。");
   } catch {
     await message.reply("⚠️ 傳不了私訊，小蝴蝶你是不是關了？");
+  }
   }
 }
 
