@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits, Events } = require('discord.js');
-const { handlePasswordCommands } = require('./modules/handlePassword');
+const handlePasswordCommands = require('./modules/handlePassword');
 const { handleYanyanIntro, handleYanyanConfirm } = require('./modules/yanyan');
 const { postVerifyAnnouncement } = require('./modules/postVerifyAnnouncement');
 const { handleButtonCommands, setupButtonInteraction } = require('./modules/handleButtons');
