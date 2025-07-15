@@ -38,5 +38,41 @@ async function handlePassword(message, characterName, allowPasswordSend) {
   }
 }
 
+module.exports = async function handlePasswordCommands({ 
+  message, 
+  userInput, 
+  passwordMap, 
+  characterLinks, 
+  passwordAccessRules, 
+  allowPasswordSend, 
+  passwordUsageStats, 
+  userUsageLog 
+}) {
+  if (userInput === '!開啟發放') {
+    const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
+    if (!isAdmin) {
+      await message.reply('❌ 你不能決定開不開，小蝴蝶沒權限。');
+      return;
+    }
+    allowPasswordSend = true; // ⚠️ 注意：這樣改變不會傳回外部，除非改用 reference
+    await message.reply('✅ 要密碼嗎？給你。');
+    return;
+  }
+
+  if (userInput === '!停止發放') {
+    const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
+    if (!isAdmin) {
+      await message.reply('❌ 你沒權關掉發放，小蝴蝶滾。');
+      return;
+    }
+    allowPasswordSend = false;
+    await message.reply('🚫 沒密碼給你，哼。');
+    return;
+  }
+
+  // ...密碼查詢處理、錯誤提示等等其他部分...
+};
+
+
 module.exports = handlePassword;
 
