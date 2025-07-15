@@ -237,7 +237,7 @@ if (userInput === '!我閱讀完且理解了') {
     // ✅ 娜個
     if (userInput === '!阿梅發角色') {
   await message.channel.send({
-    content: `**點選下方的按鈕來領取身分組**\n未領取將不定期清人`
+    content: `**點選下方的按鈕來領取身分組**`
   });
   
   for (const group of roleGroups) {
@@ -261,51 +261,22 @@ if (userInput === '!我閱讀完且理解了') {
     }
     return;
   }
-  //結婚
-  if (userInput === '!結婚') {
-  await message.channel.send({
-    content: `💍 娜娜ㄗ的結婚候選人：`,
-  });
+   // ✅ 按鈕
+  const { handleButtonCommands, setupButtonInteraction } = require('./modules/handleButtons');
 
-  const embed = new EmbedBuilder()
-    .setTitle('👰‍♀️ 結婚登記')
-    .setDescription('排隊結婚')
-    .setColor(0xffcccc);
+client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  const userInput = message.content.trim();
 
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId('role_結婚候選人')
-      .setLabel('結婚候選人')
-      .setEmoji({ name: '💍' })
-      .setStyle(ButtonStyle.Secondary)
-  );
+  const handled = await handleButtonCommands(message, userInput);
+  if (handled) return;
 
-  await message.channel.send({ embeds: [embed], components: [row] });
-  return;
-}
-  //討論
-  if (userInput === '!討論') {
-  await message.channel.send({
-    content: `今天我喜歡哲學`,
-  });
+  // 其他處理...
+});
 
-  const embed = new EmbedBuilder()
-    .setTitle('座位登記')
-    .setDescription('排隊入場')
-    .setColor(0xffcccc);
+setupButtonInteraction(client);
 
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId('role_拉普拉斯的惡魔')
-      .setLabel('拉普拉斯的惡魔')
-      .setEmoji({ name: '😈' })
-      .setStyle(ButtonStyle.Secondary)
-  );
-
-  await message.channel.send({ embeds: [embed], components: [row] });
-  return;
-}
-
+  
  // ✅ 梅玫 AI 觸發條件
   const { generateContextualResponse } = require('./modules/aiChatHandler');
 
@@ -332,26 +303,6 @@ client.on('messageCreate', async (message) => {
 });
 
 
-// ✅ 按鈕互動：領取／移除身分組
-client.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isButton()) return;
-  if (interaction.customId.startsWith('role_')) {
-    const roleName = interaction.customId.slice(5);
-    const role = interaction.guild.roles.cache.find(r => r.name === roleName);
-    if (!role) {
-      return interaction.reply({ content: `❌ 找不到身分組「${roleName}」`, ephemeral: true });
-    }
-
-    const member = await interaction.guild.members.fetch(interaction.user.id);
-    if (member.roles.cache.has(role.id)) {
-      await member.roles.remove(role);
-      await interaction.reply({ content: `❌ 小蝴蝶，你不要「${roleName}」了。`, ephemeral: true });
-    } else {
-      await member.roles.add(role);
-      await interaction.reply({ content: `✅ 小蝴蝶，你現在有「${roleName}」了。`, ephemeral: true });
-    }
-  }
-});
 
 client.login(DISCORD_BOT_TOKEN);
 
