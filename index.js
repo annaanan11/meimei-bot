@@ -66,17 +66,17 @@ client.on('messageCreate', async (message) => {
 
   // ✅ 密碼相關命令與限制
   if (passwordMap[userInput] || userInput.startsWith('!')) {
-    return handlePasswordCommands({
-      message,
-      userInput,
-      passwordMap,
-      characterLinks,
-      passwordAccessRules,
-      allowPasswordSend,
-      passwordUsageStats,
-      userUsageLog
-    });
-  }
+  return handlePasswordCommands({
+    message,
+    userInput,
+    passwordMap,
+    characterLinks,
+    passwordAccessRules,
+    allowPasswordSend,
+    passwordUsageStats,
+    userUsageLog
+  });
+}
 
   // ✅ 梅玫 AI 回覆
   const triggerKeywords = ["梅玫", "打手槍", "好煩", "射了", "梅 玫", "那個男人", "女人", "閉嘴", "吵死", "愛/愛"];
