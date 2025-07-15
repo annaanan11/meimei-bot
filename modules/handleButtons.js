@@ -69,13 +69,6 @@ function setupButtonInteraction(client) {
     }
   });
 }
-const {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  EmbedBuilder
-} = require('discord.js');
-
 function sendRoleEmbedButtons(message, roleGroups) {
   roleGroups.forEach(async (group) => {
     const embed = new EmbedBuilder()
