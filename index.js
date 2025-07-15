@@ -9,7 +9,7 @@ const {
   handleButtonCommands,
   setupButtonInteraction,
   sendRoleEmbedButtons
-} = require('./modules/handleButtons'); // ✅ 這邊合併引入
+} = require('./modules/handleButtons'); 
 
 const roleGroups = require('./config/roleGroups');
 const {
