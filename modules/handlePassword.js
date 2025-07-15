@@ -38,8 +38,5 @@ async function handlePassword(message, characterName, allowPasswordSend) {
   }
 }
 
-module.exports = {
-  handlePassword,
-  passwordUsageStats,
-  userUsageLog,
-};
+module.exports = handlePassword;
+
