@@ -20,7 +20,8 @@ const passwordMap = {
   "!嶽昀": "1964",
   "!烏鴉宅": "6164",
   "!尚姠夏廈": "5588",
-  "!娜娜": "做愛阿"
+  "!娜娜": "做愛阿",
+  "!嫣懨":"8641"
 };
 
 const characterLinks = {
@@ -44,7 +45,8 @@ const characterLinks = {
   "!大二檸": "https://abr.ge/wcssf8",
   "!嶽昀": "https://abr.ge/4v183r",
   "!烏鴉宅": "https://abr.ge/346v3i",
-  "!尚姠夏廈": "https://abr.ge/8poma1"
+  "!尚姠夏廈": "https://abr.ge/8poma1",
+  "!嫣懨":"https://abr.ge/ew63bq"
 };
 
 const passwordAccessRules = {
