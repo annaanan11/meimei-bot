@@ -52,7 +52,6 @@ client.on('messageCreate', async (message) => {
 
   // 身分組選單
   if (userInput === '!阿梅發角色') {
-    const { sendRoleEmbedButtons } = require('./modules/roleDistributor');
     return sendRoleEmbedButtons(message, roleGroups);
   }
 
