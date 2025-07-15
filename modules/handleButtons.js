@@ -2,9 +2,9 @@ const {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  EmbedBuilder
+  EmbedBuilder,
+  Events
 } = require('discord.js');
-
 
 async function handleButtonCommands(message, userInput) {
   if (userInput === '!結婚') {
@@ -69,6 +69,7 @@ function setupButtonInteraction(client) {
     }
   });
 }
+
 function sendRoleEmbedButtons(message, roleGroups) {
   roleGroups.forEach(async (group) => {
     const embed = new EmbedBuilder()
@@ -83,7 +84,7 @@ function sendRoleEmbedButtons(message, roleGroups) {
     group.roles.forEach(([label, role]) => {
       buttons.addComponents(
         new ButtonBuilder()
-          .setCustomId(`role_${role.name}`) // ex: role_li
+          .setCustomId(`role_${role.name}`)
           .setLabel(label)
           .setStyle(ButtonStyle.Secondary)
       );
@@ -94,12 +95,7 @@ function sendRoleEmbedButtons(message, roleGroups) {
 }
 
 module.exports = {
-  sendRoleEmbedButtons,
-  // 其他函式...
-};
-
-
-module.exports = {
   handleButtonCommands,
-  setupButtonInteraction
+  setupButtonInteraction,
+  sendRoleEmbedButtons
 };
