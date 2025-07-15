@@ -110,35 +110,6 @@ if (passwordMap[userInput]) {
   }
 }
 
-  //停止
-  if (!allowPasswordSend) {
-    await message.reply('⚠️ 操，不能領，笨蝶。');
-    return;
-  }
-
-  //成功發送
-  const password = passwordMap[userInput];
-  const characterName = userInput.slice(1);
-
-  passwordUsageStats[userInput] = (passwordUsageStats[userInput] || 0) + 1;
-  const userId = message.author.id;
-  if (!userUsageLog[userId]) userUsageLog[userId] = [];
-  userUsageLog[userId].push(userInput);
-
-  try {
-    const link = characterLinks[userInput];
-    let msg = `🔐 ${characterName}的密碼是：\`${password}\``;
-    if(link){
-      msg += `\n🔗 [點我前往角色頁面](${link})`;
-    }
-    await message.author.send({ content: msg });
-    await message.reply('✅ 操，小蝴蝶，看私訊。');
-  } catch (err) {
-    console.error('❌ 私訊失敗：', err);
-    await message.reply('⚠️ 小蝴蝶，老子沒辦法私你。');
-  }
-  return;
-}
   //開啟+停止
   if (userInput === '!開啟發放') {
       const isAdmin = message.member.roles.cache.some(role => role.name === '娜娜ㄗ');
