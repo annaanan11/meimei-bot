@@ -33,8 +33,8 @@ client.once('ready', () => {
 });
 
 // ✅ 加入/離開伺服器自動分配身分組
-client.on('guildMemberAdd', require('./modules/onGuildMemberAdd')('🔰'));
-client.on('guildMemberRemove', require('./modules/onGuildMemberRemove')('1382903529114701874'));
+require('./modules/onGuildMemberAdd')(client, '🔰');
+require('./modules/onGuildMemberRemove')(client, '1382903529114701874');
 
 // ✅ 處理訊息事件
 client.on('messageCreate', async (message) => {
