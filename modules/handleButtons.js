@@ -63,6 +63,42 @@ function setupButtonInteraction(client) {
     }
   });
 }
+const {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder
+} = require('discord.js');
+
+function sendRoleEmbedButtons(message, roleGroups) {
+  roleGroups.forEach(async (group) => {
+    const embed = new EmbedBuilder()
+      .setTitle(group.title)
+      .setDescription(
+        group.roles.map(([label]) => `• ${label}`).join('\n')
+      )
+      .setColor(0xffc0cb);
+
+    const buttons = new ActionRowBuilder();
+
+    group.roles.forEach(([label, role]) => {
+      buttons.addComponents(
+        new ButtonBuilder()
+          .setCustomId(`role_${role.name}`) // ex: role_li
+          .setLabel(label)
+          .setStyle(ButtonStyle.Secondary)
+      );
+    });
+
+    await message.channel.send({ embeds: [embed], components: [buttons] });
+  });
+}
+
+module.exports = {
+  sendRoleEmbedButtons,
+  // 其他函式...
+};
+
 
 module.exports = {
   handleButtonCommands,
