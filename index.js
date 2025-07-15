@@ -40,13 +40,6 @@ client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
 
-  const{
-    passwordMap,
-    characterLinks,
-    passwordAccessRules
-  } = require('./config/characterData');
-
-  
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
   console.log(`✅ 梅玫已上線：${client.user.tag}`);
