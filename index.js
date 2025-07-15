@@ -32,7 +32,7 @@ client.on('messageCreate', async (message) => {
 
   const{
     passwordMap,
-    charaterLinks,
+    characterLinks,
     passwordAccessRules
   } = require('./config/characterData');
 
