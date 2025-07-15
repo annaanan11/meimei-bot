@@ -1,16 +1,24 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits, Events } = require('discord.js');
+
 const handlePasswordCommands = require('./modules/handlePassword');
 const { handleYanyanIntro, handleYanyanConfirm } = require('./modules/yanyan');
 const { postVerifyAnnouncement } = require('./modules/postVerifyAnnouncement');
-const { handleButtonCommands, setupButtonInteraction } = require('./modules/handleButtons');
 const { generateContextualResponse } = require('./modules/aiChatHandler');
+const {
+  handleButtonCommands,
+  setupButtonInteraction,
+  sendRoleEmbedButtons
+} = require('./modules/handleButtons'); // ✅ 這邊合併引入
+
 const roleGroups = require('./config/roleGroups');
 const {
   passwordMap,
   characterLinks,
   passwordAccessRules
 } = require('./config/characterData');
+
+
 
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 
