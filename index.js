@@ -25,7 +25,18 @@ const client = new Client({
   ],
 });
  
- //權限設定
+const {
+  passwordMap,
+  characterLinks,
+  passwordAccessRules
+} = require('./config/characterData');
+
+const roleGroups = require('./config/roleGroups');
+
+let allowPasswordSend = false;
+const passwordUsageStats = {};
+const userUsageLog = {};
+ 
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   const userInput = message.content.trim();
