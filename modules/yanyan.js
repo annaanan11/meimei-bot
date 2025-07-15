@@ -47,7 +47,7 @@ async function handleYanyanConfirm(message, allowPasswordSend) {
   const embed = new EmbedBuilder()
     .setColor(0x00cc66)
     .setTitle("嫣懨角色資料")
-    .setDescription(`🔐 密碼：${passwordMap['嫣懨']}\n🔗 [角色網頁](${characterLinks['嫣懨']})`);
+    .setDescription(`🔐 密碼：${passwordMap['!嫣懨']}\n🔗 [角色網頁](${characterLinks['!嫣懨']})`);
 
   try {
     await message.author.send({ embeds: [embed] });
