@@ -94,6 +94,44 @@ function sendRoleEmbedButtons(message, roleGroups) {
   });
 }
 
+/**
+ * 發送每一組角色按鈕與對應 embed
+ * @param {Message} message Discord 的 Message 物件
+ * @param {Array} roleGroups 角色分組陣列（每組包含 title、roles）
+ */
+function sendRoleEmbedButtons(message, roleGroups) {
+  roleGroups.forEach(async (group) => {
+    const embed = new EmbedBuilder()
+      .setTitle(group.title) // 🩶 繡骨臺、🍷 混池 等
+      .setDescription(
+        group.roles.map(([label]) => `• ${label}`).join('\n')
+      )
+      .setColor(0xffc0cb); // 粉紅系色調
+
+    const buttons = new ActionRowBuilder();
+
+    group.roles.forEach(([label, role]) => {
+      const button = new ButtonBuilder()
+        .setCustomId(`role_${role.name}`)
+        .setLabel(label)
+        .setStyle(ButtonStyle.Secondary);
+
+      // 如果有 emoji，就加上（安全處理）
+      if (role.emoji) {
+        button.setEmoji(role.emoji);
+      }
+
+      buttons.addComponents(button);
+    });
+
+    await message.channel.send({
+      embeds: [embed],
+      components: [buttons]
+    });
+  });
+}
+
+
 module.exports = {
   handleButtonCommands,
   setupButtonInteraction,
