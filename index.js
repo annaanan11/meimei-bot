@@ -31,7 +31,6 @@ const {
   passwordAccessRules
 } = require('./config/characterData');
 
-const roleGroups = require('./config/roleGroups');
 
 let allowPasswordSend = false;
 const passwordUsageStats = {};
