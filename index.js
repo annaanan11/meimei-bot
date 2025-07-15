@@ -23,9 +23,15 @@ const client = new Client({
   ],
 });
 
-let allowPasswordSend = false;
-const passwordUsageStats = {};
-const userUsageLog = {};
+return handlePasswordCommands({
+  message,
+  userInput,
+  passwordMap,
+  characterLinks,
+  passwordAccessRules,
+  ...state
+});
+
 
 console.log('✅ 正在嘗試登入 Discord...');
 client.once('ready', () => {
