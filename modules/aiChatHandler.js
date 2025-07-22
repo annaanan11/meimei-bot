@@ -1,5 +1,7 @@
 // modules/aiChatHandler.js
 
+const triggerKeywords = ["打手槍", "梅 玫", "那個男人", "吵死", "愛/愛"];
+
 const { EmbedBuilder } = require('discord.js');
 
 const userHistories = {};
