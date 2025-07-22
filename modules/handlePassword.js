@@ -12,6 +12,12 @@ module.exports = async function handlePasswordCommands({
 }) {
   const isAdmin = message.member?.roles?.cache?.some(role => role.name === '娜娜ㄗ');
 
+  const rule = passwordAccessRules[userInput];
+if (rule && !rule(message.member)) {
+  await message.reply('🚫 你沒資格領這個，小蝴蝶乖乖去旁邊。');
+  return;
+}
+
   if (userInput === '!開啟發放') {
     if (!isAdmin) {
       await message.reply('❌ 你不能決定開不開，小蝴蝶沒權限。');
