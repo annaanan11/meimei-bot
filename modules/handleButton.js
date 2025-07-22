@@ -70,7 +70,7 @@ function setupButtonInteraction(client) {
   });
 }
 
-function sendRoleEmbedButtons(message, roleGroups) {
+function sendRoleEmbedButton(message, roleGroups) {
   roleGroups.forEach(async (group) => {
     const embed = new EmbedBuilder()
       .setTitle(group.title)
@@ -111,5 +111,5 @@ function sendRoleEmbedButtons(message, roleGroups) {
 module.exports = {
   handleButtonCommands,
   setupButtonInteraction,
-  sendRoleEmbedButtons
+  sendRoleEmbedButton
 };
