@@ -1,4 +1,17 @@
 const { EmbedBuilder } = require('discord.js');
+//access rule判斷
+function resolveAccessRule(ruleString){
+  if (ruleString === 'all'){
+    return () => true;
+  }
+  if (ruleString === 'none'){
+    return () => false;
+  }
+  if (ruleString === 'hehe'){
+    return (member) => member.roles.cache.some(r => ['娜娜ㄗ', 'hehe'].include(r.name));
+  }
+  return () => false;
+}
 
 module.exports = async function handlePasswordCommands({
   message,
@@ -12,12 +25,15 @@ module.exports = async function handlePasswordCommands({
 }) {
   const isAdmin = message.member?.roles?.cache?.some(role => role.name === '娜娜ㄗ');
 
-  const rule = passwordAccessRules[userInput];
-if (rule && !rule(message.member)) {
-  await message.reply('🚫 你沒資格領這個，小蝴蝶乖乖去旁邊。');
+  //身分判斷nohehe
+  const ruleRaw = passwordAccessRules[userInput];
+  const accessRule = resolveAccessRule(ruleRaw);
+  if (!accessRule(message.member)) {
+  await message.reply('🚫 只有hehe可以領，小蝴蝶乖乖去旁邊。');
   return;
 }
 
+  //開密碼
   if (userInput === '!開啟發放') {
     if (!isAdmin) {
       await message.reply('❌ 你不能決定開不開，小蝴蝶沒權限。');
@@ -28,9 +44,10 @@ if (rule && !rule(message.member)) {
     return;
   }
 
+  //關密碼
   if (userInput === '!停止發放') {
     if (!isAdmin) {
-      await message.reply('❌ 你沒權關掉發放，小蝴蝶滾。');
+      await message.reply('❌ 小蝴蝶，跟你沒關係。');
       return;
     }
     state.allowPasswordSend = false;
