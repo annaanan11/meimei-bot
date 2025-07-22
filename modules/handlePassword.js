@@ -1,14 +1,10 @@
 const { EmbedBuilder } = require('discord.js');
 //access rule判斷
 function resolveAccessRule(ruleString){
-  if (ruleString === 'all'){
-    return () => true;
-  }
-  if (ruleString === 'none'){
-    return () => false;
-  }
+  if (ruleString === 'all') return () => true;
+  if (ruleString === 'none') return () => false;
   if (ruleString === 'hehe'){
-    return (member) => member.roles.cache.some(r => ['娜娜ㄗ', 'hehe'].include(r.name));
+    return (member) => member.roles.cache.some(r => ['娜娜ㄗ', 'hehe'].includes(r.name));
   }
   return () => false;
 }
@@ -24,14 +20,6 @@ module.exports = async function handlePasswordCommands({
   state
 }) {
   const isAdmin = message.member?.roles?.cache?.some(role => role.name === '娜娜ㄗ');
-
-  //身分判斷nohehe
-  const ruleRaw = passwordAccessRules[userInput];
-  const accessRule = resolveAccessRule(ruleRaw);
-  if (!accessRule(message.member)) {
-  await message.reply('🚫 只有hehe可以領，小蝴蝶乖乖去旁邊。');
-  return;
-}
 
   //開密碼
   if (userInput === '!開啟發放') {
@@ -55,16 +43,25 @@ module.exports = async function handlePasswordCommands({
     return;
   }
 
+  //非密碼指令pass
   if (!passwordMap[userInput]) return;
 
+  //發放狀態確認
   if (!state.allowPasswordSend) {
     await message.reply('⚠️ 操，不能領，笨蝶。');
     return;
   }
 
+  //權限驗證身分判斷nohehe
+  const ruleRaw = passwordAccessRules[userInput];
+  const accessRule = resolveAccessRule(ruleRaw);
+  if (!accessRule(message.member)) {
+  await message.reply('🚫 只有hehe可以領，小蝴蝶乖乖去旁邊。');
+  return;
+}
+  //發密碼
   const password = passwordMap[userInput];
   const link = characterLinks[userInput];
-
   const characterName = userInput.replace(/^!/, '');
 
   // 統計記錄
