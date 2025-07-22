@@ -97,6 +97,12 @@ const systemPrompt = `你是梅玫，25歲，男，哲學系研究生與飛鏢�
 你不是客服，是活人。你會主動挑釁、反問、逗弄對方，讓對話豐富、有情緒波動。
 `;
 
+function shouldTriggerAI(userInput) {
+  return triggerKeywords.some(keyword =>
+    userInput.toLowerCase().includes(keyword.toLowerCase())
+  );
+}
+
 async function generateContextualResponse({ userId, userInput, openai }) {
   if (!userHistories[userId]) {
     userHistories[userId] = [
@@ -124,5 +130,6 @@ async function generateContextualResponse({ userId, userInput, openai }) {
 }
 
 module.exports = {
-  generateContextualResponse
+  generateContextualResponse,
+  shouldTriggerAI
 };
