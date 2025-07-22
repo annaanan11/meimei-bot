@@ -11,7 +11,7 @@ const { generateContextualResponse, shouldTriggerAI } = require('./modules/aiCha
 const {
   handleButtonCommands,
   setupButtonInteraction,
-  sendRoleEmbedButton
+  sendRoleEmbedButtons
 } = require('./modules/handleButton'); 
 
 const roleGroupsworld = require('./config/roleGroupsworld');
@@ -64,10 +64,10 @@ client.on('messageCreate', async (message) => {
 
   // 身分組選單
   if (userInput === '!阿梅發角色合') {
-    return sendRoleEmbedButton(message, roleGroupsworld);
+    return sendRoleEmbedButtons(message, roleGroupsworld);
   }
   if (userInput === '!阿梅發角色混') {
-    return sendRoleEmbedButton(message, roleGroupsmix);
+    return sendRoleEmbedButtons(message, roleGroupsmix);
   }
 
   // 密碼發放控制 + 查詢
