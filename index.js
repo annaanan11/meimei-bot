@@ -7,7 +7,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const handlePasswordCommands = require('./modules/handlePassword');
 const { handleYanyanIntro, handleYanyanConfirm } = require('./modules/yanyan');
 const { postVerifyAnnouncement } = require('./modules/postVerifyAnnouncement');
-const { generateContextualResponse } = require('./modules/aiChatHandler');
+const { generateContextualResponse, shouldTriggerAI } = require('./modules/aiChatHandler');
 const {
   handleButtonCommands,
   setupButtonInteraction,
@@ -81,7 +81,6 @@ client.on('messageCreate', async (message) => {
   }
 
   // 梅玫對話
-  const { generateContextualResponse, shouldTriggerAI } = require('./modules/aiChatHandler');
   if (shouldTriggerAI(userInput)) {
     try {
       const reply = await generateContextualResponse({ userId: message.author.id, userInput, openai });
