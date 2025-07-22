@@ -1,6 +1,9 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits, Events } = require('discord.js');
 
+const OpenAI = require('openai');
+const openai = new OpenAi({ apiKey: process.env.OPENAI_API_KEY });
+
 const handlePasswordCommands = require('./modules/handlePassword');
 const { handleYanyanIntro, handleYanyanConfirm } = require('./modules/yanyan');
 const { postVerifyAnnouncement } = require('./modules/postVerifyAnnouncement');
