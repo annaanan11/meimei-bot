@@ -63,7 +63,8 @@ client.on('messageCreate', async (message) => {
 
   // 身分組選單
   if (userInput === '!阿梅發角色') {
-    return sendRoleEmbedButtons(message, roleGroups);
+    return sendRoleEmbedButtons(message, roleGroupsworld);
+    return sendRoleEmbedButtons(message, roleGroupsmix);
   }
 
   // 密碼發放控制 + 查詢
