@@ -78,7 +78,7 @@ client.on('messageCreate', async (message) => {
   }
 
   // 梅玫對話
-  const triggerKeywords = ["梅玫", "打手槍", "好煩", "射了", "梅 玫", "那個男人", "女人", "閉嘴", "吵死", "愛/愛"];
+  const triggerKeywords = ["打手槍", "梅 玫", "那個男人", "吵死", "愛/愛"];
   const isTriggered = triggerKeywords.some(keyword => userInput.toLowerCase().includes(keyword.toLowerCase()));
   if (isTriggered) {
     try {
