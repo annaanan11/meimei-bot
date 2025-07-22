@@ -134,5 +134,5 @@ function sendRoleEmbedButtons(message, roleGroups) {
 module.exports = {
   handleButtonCommands,
   setupButtonInteraction,
-  sendRoleEmbedButton
+  sendRoleEmbedButtons
 };
