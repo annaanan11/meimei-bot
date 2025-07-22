@@ -74,9 +74,6 @@ async function sendRoleEmbedButtons(message, roleGroups) {
   for (const group of roleGroups) {
     const embed = new EmbedBuilder()
       .setTitle(group.title)
-      .setDescription(
-        group.roles.map(([label]) => `• ${label}`).join('\n')
-      )
       .setColor(0xffc0cb);
 
     const rows = [];
