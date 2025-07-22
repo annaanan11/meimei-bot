@@ -119,14 +119,6 @@ async function sendRoleEmbedButtons(message, roleGroups) {
   }
 }
 
-  
-    await message.channel.send({
-      embeds: [embed],
-      components: rows
-    });
-  });
-}
-
 module.exports = {
   handleButtonCommands,
   setupButtonInteraction,
