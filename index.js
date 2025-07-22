@@ -62,10 +62,10 @@ client.on('messageCreate', async (message) => {
   if (userInput === '!發驗證公告') return postVerifyAnnouncement(message);
 
   // 身分組選單
-  if (userInput === '!阿梅發角色1') {
+  if (userInput === '!阿梅發角色合') {
     return sendRoleEmbedButtons(message, roleGroupsworld);
   }
-  if (userInput === '!阿梅發角色2') {
+  if (userInput === '!阿梅發角色混') {
     return sendRoleEmbedButtons(message, roleGroupsmix);
   }
 
