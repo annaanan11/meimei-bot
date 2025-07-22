@@ -17,7 +17,7 @@ async function handleButtonCommands(message, userInput) {
       new ButtonBuilder()
         .setCustomId('role_結婚候選人')
         .setLabel('結婚候選人')
-        .setEmoji({ name: '💍' })
+        .setEmoji('💍')
         .setStyle(ButtonStyle.Secondary)
     );
 
@@ -35,7 +35,7 @@ async function handleButtonCommands(message, userInput) {
       new ButtonBuilder()
         .setCustomId('_拉普拉斯的惡魔')
         .setLabel('拉普拉斯的惡魔')
-        .setEmoji({ name: '😈' })
+        .setEmoji('😈')
         .setStyle(ButtonStyle.Secondary)
     );
 
@@ -88,7 +88,15 @@ async function sendRoleEmbedButtons(message, roleGroups) {
         .setLabel(label)
         .setStyle(ButtonStyle.Secondary);
 
-      if (role.emoji) {
+      // 👉 自動補 emoji：若無 emoji 欄，但有 id 和 name，推斷為自訂 emoji
+      if (!role.emoji && role.id && role.name) {
+        role.emoji = { id: role.id, name: role.name };
+      }
+
+      // 👉 設定 emoji（支援字串與物件）
+      if (typeof role.emoji === 'string') {
+        button.setEmoji(role.emoji);
+      } else if (typeof role.emoji === 'object') {
         button.setEmoji(role.emoji);
       }
 
@@ -108,7 +116,7 @@ async function sendRoleEmbedButtons(message, roleGroups) {
       }
     }
 
-        try {
+    try {
       await message.channel.send({
         embeds: [embed],
         components: rows
