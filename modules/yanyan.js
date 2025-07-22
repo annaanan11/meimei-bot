@@ -2,11 +2,35 @@
 const { EmbedBuilder } = require('discord.js');
 const { passwordMap, characterLinks } = require('../config/characterData');
 
+//關閉密碼
 async function handleYanyanIntro(message, allowPasswordSend) {
   if (!allowPasswordSend) {
     await message.reply("⚠️ 操，不能領，笨蝶。");
     return;
   }
+
+  //身分組判斷
+  const member = await message.guild.members.fetch(message.author.id);
+  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === '娜娜子');
+
+  if (hasHehe || hasOnlyAdult || 娜娜子) {
+  const embed = new EmbedBuilder()
+    .setColor(0x00cc66)
+    .setTitle("嫣懨角色資料")
+    .setDescription(`🔐 密碼：${passwordMap['!嫣懨']}\n🔗 [角色網頁](${characterLinks['!嫣懨']})`);
+
+  try {
+    await message.author.send({ embeds: [embed] });
+    await message.reply("✅ 小蝴蝶，去私訊看看。");
+  } catch {
+    await message.reply("⚠️ 傳不了私訊，小蝴蝶你是不是關了？");
+  }
+  }else{
+    await message.reply("🚫小蝴蝶你不能領。");  
+}
+
 
   const embed = new EmbedBuilder()
     .setColor(0xffcccc)
@@ -40,25 +64,7 @@ async function handleYanyanConfirm(message, allowPasswordSend) {
   }
 
   
-  const member = await message.guild.members.fetch(message.author.id);
-  const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
-  const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-  const hasOnlyAdult = member.roles.cache.some(role => role.name === '娜娜子');
-  if (hasHehe || hasOnlyAdult || 娜娜子) {
-    
-  const embed = new EmbedBuilder()
-    .setColor(0x00cc66)
-    .setTitle("嫣懨角色資料")
-    .setDescription(`🔐 密碼：${passwordMap['!嫣懨']}\n🔗 [角色網頁](${characterLinks['!嫣懨']})`);
 
-  try {
-    await message.author.send({ embeds: [embed] });
-    await message.reply("✅ 小蝴蝶，去私訊看看。");
-  } catch {
-    await message.reply("⚠️ 傳不了私訊，小蝴蝶你是不是關了？");
-  }
-  }
-}
 
 module.exports = {
   handleYanyanIntro,
