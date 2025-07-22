@@ -19,7 +19,7 @@ module.exports = async function handlePasswordCommands({
   userUsageLog,
   state
 }) {
-  const isAdmin = message.member?.roles?.cache?.some(role => role.name === '娜娜ㄗ');
+  const isAdmin = message.member?.roles?.cache?.has('1379835554140520550');
 
   //開密碼
   if (userInput === '!開啟發放') {
