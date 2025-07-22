@@ -64,11 +64,13 @@ client.on('messageCreate', async (message) => {
 
   // 身分組選單
   if (userInput === '!阿梅發角色合') {
-    return sendRoleEmbedButtons(message, roleGroupsworld);
-  }
+  await sendRoleEmbedButtons(message, roleGroupsworld);
+  return;
+}
   if (userInput === '!阿梅發角色混') {
-    return sendRoleEmbedButtons(message, roleGroupsmix);
-  }
+  await sendRoleEmbedButtons(message, roleGroupsmix);
+  return;
+}
 
   // 密碼發放控制 + 查詢
   if (passwordMap[userInput] || Object.keys(passwordMap).some( p => userInput.startsWith(p))) {
