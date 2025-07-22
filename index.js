@@ -14,8 +14,8 @@ const {
   sendRoleEmbedButtons
 } = require('./modules/handleButtons'); 
 
-const roleGroups = require('./config/roleGroupsworld');
-const roleGroups = require('./config/roleGroupsmix');
+const roleGroupsworld = require('./config/roleGroupsworld');
+const roleGroupsmix = require('./config/roleGroupsmix');
 const {
   passwordMap,
   characterLinks,
