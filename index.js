@@ -67,7 +67,7 @@ client.on('messageCreate', async (message) => {
   }
 
   // 密碼發放控制 + 查詢
-  if (passwordMap[userInput] || userInput.startsWith('!')) {
+  if (passwordMap[userInput] || Object.keys(passwoedMap).some( p => userInput.startsWith(p))) {
     return handlePasswordCommands({
       message,
       userInput,
@@ -81,7 +81,6 @@ client.on('messageCreate', async (message) => {
   }
 
   // 梅玫對話
-  const triggerKeywords = ["打手槍", "梅 玫", "那個男人", "吵死", "愛/愛"];
   const isTriggered = triggerKeywords.some(keyword => userInput.toLowerCase().includes(keyword.toLowerCase()));
   if (isTriggered) {
     try {
@@ -101,4 +100,5 @@ setupButtonInteraction(client);
 client.login(DISCORD_BOT_TOKEN);
 client.on('error', error => console.error('❌ Discord Client 錯誤：', error));
 client.on('shardError', error => console.error('❌ Discord Shard 錯誤：', error));
+client.on('warn', info => console.warn('DC警告:', info));
 process.on('unhandledRejection', error => console.error('❌ 未捕獲錯誤：', error));
