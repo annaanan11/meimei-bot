@@ -32,6 +32,7 @@ async function handleYanyanIntro(message, allowPasswordSend) {
   }
 }
 
+//閱讀
 async function handleYanyanConfirm(message, allowPasswordSend) {
   if (!allowPasswordSend) {
     await message.reply("⚠️ 操，不能領，笨蝶。");
