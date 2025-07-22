@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, Events } = require('discord.js');
 
 const OpenAI = require('openai');
-const openai = new OpenAi({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const handlePasswordCommands = require('./modules/handlePassword');
 const { handleYanyanIntro, handleYanyanConfirm } = require('./modules/yanyan');
@@ -67,7 +67,7 @@ client.on('messageCreate', async (message) => {
   }
 
   // 密碼發放控制 + 查詢
-  if (passwordMap[userInput] || Object.keys(passwoedMap).some( p => userInput.startsWith(p))) {
+  if (passwordMap[userInput] || Object.keys(passwordMap).some( p => userInput.startsWith(p))) {
     return handlePasswordCommands({
       message,
       userInput,
@@ -81,8 +81,8 @@ client.on('messageCreate', async (message) => {
   }
 
   // 梅玫對話
-  const isTriggered = triggerKeywords.some(keyword => userInput.toLowerCase().includes(keyword.toLowerCase()));
-  if (isTriggered) {
+  const { generateContextualResponse, shouldTriggerAI } = require('./modules/aiChatHandler');
+  if (shouldTriggerAI(userInput)) {
     try {
       const reply = await generateContextualResponse({ userId: message.author.id, userInput, openai });
       await message.reply(reply);
