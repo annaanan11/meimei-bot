@@ -14,8 +14,7 @@ const {
   sendRoleEmbedButtons
 } = require('./modules/handleButtons'); 
 
-const roleGroupsworld = require('./config/roleGroupsworld');
-const roleGroupsmix = require('./config/roleGroupsmix');
+const roleGroups = require('./config/roleGroups');
 const {
   passwordMap,
   characterLinks,
@@ -63,11 +62,8 @@ client.on('messageCreate', async (message) => {
   if (userInput === '!發驗證公告') return postVerifyAnnouncement(message);
 
   // 身分組選單
-  if (userInput === '!阿梅發角色合') {
-    return sendRoleEmbedButtons(message, roleGroupsworld);
-  }
-  if (userInput === '!阿梅發角色混') {
-    return sendRoleEmbedButtons(message, roleGroupsmix);
+  if (userInput === '!阿梅發角色') {
+    return sendRoleEmbedButtons(message, roleGroups);
   }
 
   // 密碼發放控制 + 查詢
