@@ -22,8 +22,6 @@ const {
   passwordAccessRules
 } = require('./config/characterData');
 
-
-
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 
 const client = new Client({
@@ -44,6 +42,7 @@ client.once('ready', () => {
   console.log(`✅ 機器人已上線：${client.user.tag}`);
 });
 
+// 入退群提示
 require('./modules/onGuildMemberAdd')(client, '🔰');
 require('./modules/onGuildMemberRemove')(client, '1382903529114701874');
 
@@ -64,29 +63,27 @@ client.on('messageCreate', async (message) => {
 
   // 身分組選單
   if (userInput === '!阿梅發角色合') {
-  await sendRoleEmbedButtons(message, roleGroupsworld);
-  return;
-}
+    await sendRoleEmbedButtons(message, roleGroupsworld);
+    return;
+  }
   if (userInput === '!阿梅發角色混') {
-  await sendRoleEmbedButtons(message, roleGroupsmix);
-  return;
-}
-
-  // 密碼發放控制 + 查詢
-  if (passwordMap[userInput] || Object.keys(passwordMap).some( p => userInput.startsWith(p))) {
-    return handlePasswordCommands({
-      message,
-      userInput,
-      passwordMap,
-      characterLinks,
-      passwordAccessRules,
-      passwordUsageStats,
-      userUsageLog,
-      state
-    });
+    await sendRoleEmbedButtons(message, roleGroupsmix);
+    return;
   }
 
-  // 梅玫對話
+  // ✅ 改這裡：密碼與控制指令直接交由 handlePasswordCommands 處理
+  await handlePasswordCommands({
+    message,
+    userInput,
+    passwordMap,
+    characterLinks,
+    passwordAccessRules,
+    passwordUsageStats,
+    userUsageLog,
+    state
+  });
+
+  // 梅玫 AI 對話
   if (shouldTriggerAI(userInput)) {
     try {
       const reply = await generateContextualResponse({ userId: message.author.id, userInput, openai });
@@ -98,10 +95,10 @@ client.on('messageCreate', async (message) => {
   }
 });
 
-// 按鈕互動
+// 按鈕互動監聽
 setupButtonInteraction(client);
 
-// 錯誤處理
+// 錯誤監聽
 client.login(DISCORD_BOT_TOKEN);
 client.on('error', error => console.error('❌ Discord Client 錯誤：', error));
 client.on('shardError', error => console.error('❌ Discord Shard 錯誤：', error));
