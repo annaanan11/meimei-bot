@@ -79,7 +79,8 @@ function sendRoleEmbedButtons(message, roleGroups) {
       )
       .setColor(0xffc0cb);
 
-    const buttons = new ActionRowBuilder();
+    const rows = [];
+    const buttons = [];
 
     group.roles.forEach(([label, role]) => {
       const button = new ButtonBuilder()
@@ -91,12 +92,18 @@ function sendRoleEmbedButtons(message, roleGroups) {
         button.setEmoji(role.emoji);
       }
 
-      buttons.addComponents(button);
+      buttons.push(button);
     });
+
+    // 每 5 個按鈕一行
+    for (let i = 0; i < buttons.length; i += 5) {
+      const row = new ActionRowBuilder().addComponents(buttons.slice(i, i + 5));
+      rows.push(row);
+    }
 
     await message.channel.send({
       embeds: [embed],
-      components: [buttons]
+      components: rows
     });
   });
 }
