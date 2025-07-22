@@ -116,7 +116,6 @@ async function sendRoleEmbedButtons(message, roleGroups) {
     } catch (err) {
       console.error(`❌ 發送角色群組「${group.title}」失敗：`, err);
     }
-  }
 }
 
 module.exports = {
