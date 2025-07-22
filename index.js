@@ -12,7 +12,7 @@ const {
   handleButtonCommands,
   setupButtonInteraction,
   sendRoleEmbedButtons
-} = require('./modules/handleButton'); 
+} = require('./modules/handleButtons'); 
 
 const roleGroupsworld = require('./config/roleGroupsworld');
 const roleGroupsmix = require('./config/roleGroupsmix');
