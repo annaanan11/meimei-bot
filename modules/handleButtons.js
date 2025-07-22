@@ -33,7 +33,7 @@ async function handleButtonCommands(message, userInput) {
 
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setCustomId('role_拉普拉斯的惡魔')
+        .setCustomId('_拉普拉斯的惡魔')
         .setLabel('拉普拉斯的惡魔')
         .setEmoji({ name: '😈' })
         .setStyle(ButtonStyle.Secondary)
