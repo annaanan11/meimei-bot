@@ -70,7 +70,7 @@ function setupButtonInteraction(client) {
   });
 }
 
-function sendRoleEmbedButton(message, roleGroups) {
+function sendRoleEmbedButtons(message, roleGroups) {
   roleGroups.forEach(async (group) => {
     const embed = new EmbedBuilder()
       .setTitle(group.title)
@@ -95,12 +95,35 @@ function sendRoleEmbedButton(message, roleGroups) {
       buttons.push(button);
     });
 
-    // 每 5 個按鈕一行
-    for (let i = 0; i < buttons.length; i += 5) {
-      const row = new ActionRowBuilder().addComponents(buttons.slice(i, i + 5));
-      rows.push(row);
+    // ✅ 加這段：如果沒有按鈕就跳過
+    if (buttons.length === 0) {
+      console.warn(`⚠️ 群組「${group.title}」內無按鈕，略過發送`);
+      return;
     }
 
+    // 每 5 個按鈕一行
+    for (let i = 0; i < buttons.length; i += 5) {
+      const rowButtons = buttons.slice(i, i + 5);
+
+      // ✅ 加這段：確保這一行有按鈕才送
+      if (rowButtons.length > 0) {
+        const row = new ActionRowBuilder().addComponents(rowButtons);
+        rows.push(row);
+      }
+    }
+
+    // ✅ 包 try-catch：避免 API crash 直接中斷
+    try {
+      await message.channel.send({
+        embeds: [embed],
+        components: rows
+      });
+    } catch (err) {
+      console.error(`❌ 發送角色群組「${group.title}」失敗：`, err);
+    }
+  });
+}
+  
     await message.channel.send({
       embeds: [embed],
       components: rows
