@@ -43,7 +43,8 @@ async function handleYanyanConfirm(message, allowPasswordSend) {
   const member = await message.guild.members.fetch(message.author.id);
   const hasHehe = member.roles.cache.some(role => role.name === 'hehe');
   const hasOnlyAdult = member.roles.cache.some(role => role.name === 'onlyadult');
-  if (hasHehe || hasOnlyAdult) {
+  const hasOnlyAdult = member.roles.cache.some(role => role.name === '娜娜子');
+  if (hasHehe || hasOnlyAdult || 娜娜子) {
     
   const embed = new EmbedBuilder()
     .setColor(0x00cc66)
