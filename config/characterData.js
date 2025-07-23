@@ -69,7 +69,7 @@ const passwordAccessRules = {
   "!Hugh‧Hugo": "all",
   "!修修果": "hehe",
   "!黛玳": "all",
-  "!尹隱": "all",
+  "!尹隱": "hehe",
   "!雙爹": "hehe",
   "!大二檸": "all",
   "!嶽昀": "all",
