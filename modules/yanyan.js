@@ -5,7 +5,7 @@ const { passwordMap, characterLinks } = require('../config/characterData');
 // 共用身分判斷
 function hasYanyanAccess(member) {
   return member.roles.cache.some(role =>
-    ['hehe', 'onlyadult', '娜娜子'].includes(role.name)
+    ['hehe', 'Onlyadult', '娜娜子'].includes(role.name)
   );
 }
 
