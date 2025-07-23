@@ -21,7 +21,9 @@ const passwordMap = {
   "!烏鴉宅": "6164",
   "!尚姠夏廈": "5588",
   "!娜娜": "做愛阿",
-  "!嫣懨":"8641"
+  "!嫣懨":"8641",
+  "!卉蕙":"6969",
+  "!鄰居":"4521"
 };
 
 const characterLinks = {
@@ -46,7 +48,9 @@ const characterLinks = {
   "!嶽昀": "https://abr.ge/4v183r",
   "!烏鴉宅": "https://abr.ge/346v3i",
   "!尚姠夏廈": "https://abr.ge/8poma1",
-  "!嫣懨":"https://abr.ge/ew63bq"
+  "!嫣懨":"https://abr.ge/ew63bq",
+  "!卉蕙":"https://abr.ge/pf886x",
+  "!鄰居":"https://abr.ge/89l75q"
 };
 
 const passwordAccessRules = {
@@ -57,22 +61,24 @@ const passwordAccessRules = {
   "!狼蛛": "all",
   "!沙姆沙馬宮": "all",
   "!繡骨臺": "all",
-  "!平蘋": "none",
-  "!安萻": "none",
+  "!平蘋": "hehe",
+  "!安萻": "all",
   "!佐左": "all",
   "!佑釉": "all",
   "!甯檸": "all",
-  "!Hugh‧Hugo": "none",
-  "!修修果": "none",
+  "!Hugh‧Hugo": "all",
+  "!修修果": "hehe",
   "!黛玳": "all",
-  "!尹隱": "hehe",
+  "!尹隱": "all",
   "!雙爹": "hehe",
   "!大二檸": "all",
   "!嶽昀": "all",
-  "!烏鴉宅": "hehe",
+  "!烏鴉宅": "all",
   "!尚姠夏廈": "all",
   "!娜娜": "hehe",
-  "!嫣懨": "all"
+  "!嫣懨": "all",
+  "!卉蕙":"all",
+  "!鄰居":"all"
 };
 
 module.exports = {
